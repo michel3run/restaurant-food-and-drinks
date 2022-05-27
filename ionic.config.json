@@ -1,0 +1,8 @@
+{
+  "name": "Restaurant food and drinks",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular",
+  "id": "6af8a807"
+}
