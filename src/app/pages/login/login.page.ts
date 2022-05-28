@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AppComponent } from 'src/app/app.component';
 @Component({
   selector: 'app-login',
@@ -6,13 +7,18 @@ import { AppComponent } from 'src/app/app.component';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-  prueba = new AppComponent()
-  escribe = this.prueba.islogin
-  constructor() { }
+
+  constructor(private router:Router) {
+  }
 
   ngOnInit() {
-  }
+ }
+  
+
   login(){
-    //this.escribe= false
+  const  prueba = new AppComponent
+
+   // this.router.navigateByUrl("primarydish")
+    
   }
 }
