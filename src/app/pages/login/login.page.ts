@@ -17,7 +17,7 @@ export class LoginPage implements OnInit {
 
   login(){
   const  prueba = new AppComponent
-
+  
    // this.router.navigateByUrl("primarydish")
     
   }
