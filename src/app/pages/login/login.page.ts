@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppComponent } from 'src/app/app.component';
+import {ApiService} from '../../service/api/api.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -8,16 +9,19 @@ import { AppComponent } from 'src/app/app.component';
 })
 export class LoginPage implements OnInit {
 
-  constructor(private router:Router) {
+  constructor(private router:Router , private api:ApiService) {
   }
 
   ngOnInit() {
+   
  }
   
 
   login(){
   const  prueba = new AppComponent
-  
+  this.api.getAllUser().subscribe(data=>{
+    console.log(data)
+  })
    // this.router.navigateByUrl("primarydish")
     
   }
