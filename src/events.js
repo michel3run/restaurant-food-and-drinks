@@ -5,6 +5,23 @@ function createRouter(db) {
   const owner = '';
 
   // the routes are defined here
+
+// Al registrar ver si alguien ya tiene ese correo
+  router.get('/searchUser', function (req, res, next) {
+    db.query(
+      'SELECT * FROM usuario where email=? ',
+      [req.body.email],
+      (error, results) => {
+        if (error) {
+          console.log(error);
+          res.status(500).json({status: 'error'});
+        } else {
+          res.status(200).json(results);
+        }
+      }
+    );
+  });
+//ejemplos
   router.get('/user', function (req, res, next) {
     db.query(
       'SELECT * FROM prueba ',

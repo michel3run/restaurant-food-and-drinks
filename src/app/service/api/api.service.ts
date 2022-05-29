@@ -6,9 +6,21 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ApiService {
-  url = 'http://localhost:8080/user'
+  url = 'http://localhost:8080'
   constructor(private http:HttpClient) { }
 
+  searchUser(email:string):Observable<listaUser[]>{
+    const headers = { 'content-type': 'application/json'} 
+    const body = { email : email  };
+    return this.http.get<listaUser[]>(this.url + '/searchUser',{});
+
+  }
+
+
+
+
+
+  //ejemplos
   getAllUser():Observable<listaUser[]>{
     return this.http.get<listaUser[]>(this.url);
   }

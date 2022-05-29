@@ -1,4 +1,6 @@
 export interface listaUser{
-    user:string;
+    id:number;
+    email:string;
     password:string;
+    creditCard:string;
 }
