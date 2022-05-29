@@ -22,11 +22,11 @@ export class LoginPage implements OnInit {
  /* this.api.getAllUser().subscribe(data=>{
     console.log(data)
   })*/
-
- /* this.api.getUser("michel@gmail.com").subscribe((data)=>{
+/*
+  this.api.getUser("michel@gmail.com").subscribe((data)=>{
     console.log(data)
-  })
-*/
+  })*/
+
 this.api.postUser("michel","contraseña")
 
    // this.router.navigateByUrl("primarydish")
