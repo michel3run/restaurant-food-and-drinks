@@ -17,8 +17,10 @@ export class ApiService {
     return this.http.get<listaUser>(this.url +"/"+id)
   }
 
-  postUser(user:string,pass:string){
-     this.http.post<any>(this.url+'/userImport',{usuario: user , password : pass})
+  postUser(user:string,pass:string): Observable<any>{
+    const headers = { 'content-type': 'application/json'} 
+    const body = { usuario: user ,password:pass };
+     return this.http.post<any>(this.url+'/userImport',body,{'headers':headers})
   }
   
 }
