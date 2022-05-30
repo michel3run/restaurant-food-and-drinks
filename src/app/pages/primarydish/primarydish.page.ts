@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from 'src/app/service/api/api.service';
 
 @Component({
   selector: 'app-primarydish',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PrimarydishPage implements OnInit {
 
-  constructor() { }
+  constructor(private api : ApiService) { }
 
   ngOnInit() {
+    this.api.getAllProduct().subscribe((data)=>{
+      console.log(data)
+    })
   }
 
 }

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {listaUser} from '../../model/usuario.interface'
 import {HttpClient} from '@angular/common/http'
 import { Observable } from 'rxjs';
+import { listaPrimeros } from 'src/app/model/primeros.interface';
 @Injectable({
   providedIn: 'root'
 })
@@ -10,16 +11,18 @@ export class ApiService {
   constructor(private http:HttpClient) { }
   //Buscar email para no registrarse
   searchUser(email:string):Observable<listaUser[]>{
-    /*const headers = { 'content-type': 'application/json'} 
-    const body = { email : email  };*/
     return this.http.get<listaUser[]>(this.url + '/searchUser/'+email);
 
   }
   //Login
   login(email:string,pass:string):Observable<listaUser[]>{
-    /*const headers = { 'content-type': 'application/json'} 
-    const body = { email : email  };*/
     return this.http.get<listaUser[]>(this.url + `/login/${email}/${pass}`);
+
+  }
+
+  //Todos los productos
+  getAllProduct():Observable<listaPrimeros[]>{
+    return this.http.get<listaPrimeros[]>(this.url + '/primeros');
 
   }
 
