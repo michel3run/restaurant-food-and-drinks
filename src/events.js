@@ -21,6 +21,23 @@ function createRouter(db) {
       }
     );
   });
+
+  //Para logearse 
+  router.get('/login/:email/:pass', function (req, res, next) {
+    db.query(
+      'SELECT * FROM usuario where email=? and password=?',
+      [req.params.email,req.params.pass],
+      (error, results) => {
+        if (error) {
+          console.log(error);
+          res.status(500).json({status: 'error'});
+        } else {
+          res.status(200).json(results);
+        }
+      }
+    );
+  });
+
 //ejemplos
   router.get('/user', function (req, res, next) {
     db.query(

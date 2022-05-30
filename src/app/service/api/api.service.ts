@@ -8,11 +8,18 @@ import { Observable } from 'rxjs';
 export class ApiService {
   url = 'http://localhost:8080'
   constructor(private http:HttpClient) { }
-
+  //Buscar email para no registrarse
   searchUser(email:string):Observable<listaUser[]>{
     /*const headers = { 'content-type': 'application/json'} 
     const body = { email : email  };*/
     return this.http.get<listaUser[]>(this.url + '/searchUser/'+email);
+
+  }
+  //Login
+  login(email:string,pass:string):Observable<listaUser[]>{
+    /*const headers = { 'content-type': 'application/json'} 
+    const body = { email : email  };*/
+    return this.http.get<listaUser[]>(this.url + `/login/${email}/${pass}`);
 
   }
 

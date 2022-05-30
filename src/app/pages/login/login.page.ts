@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastController } from '@ionic/angular';
 import { AppComponent } from 'src/app/app.component';
 import { MenuService } from 'src/app/service/menu/menu.service';
 import { ApiService } from '../../service/api/api.service';
@@ -10,16 +11,22 @@ import { ApiService } from '../../service/api/api.service';
 })
 export class LoginPage implements OnInit {
 
-  constructor(private router: Router, private api: ApiService, private menu:MenuService) {
+  constructor(private router: Router, private api: ApiService, private menu: MenuService , private toastController: ToastController) {
   }
 
   ngOnInit() {
 
   }
-
+  async errorToast() {
+    const toast = await this.toastController.create({
+      message: 'Error el usuario o contraseña son incorrectos.',
+      duration: 2000
+    });
+    toast.present();
+  }
 
   login() {
-    this.menu.showMenu=!this.menu.showMenu
+
     /* this.api.getAllUser().subscribe(data=>{
        console.log(data)
      })*/
@@ -29,8 +36,19 @@ export class LoginPage implements OnInit {
       })*/
 
     //this.api.postUser("login", "contraseña").subscribe()
+    const email = (document.getElementById("email") as HTMLInputElement).value;
+    const password = (document.getElementById("password") as HTMLInputElement).value;
 
-     this.router.navigateByUrl("primarydish")
+    this.api.login(email, password).subscribe((data => {
+      console.log(data)
+      if (data.length == 1) {
+        this.menu.showMenu = !this.menu.showMenu
+        this.router.navigateByUrl("primarydish")
+      } else {
+        this.errorToast()
+      }
+    }))
+    
 
   }
 }
