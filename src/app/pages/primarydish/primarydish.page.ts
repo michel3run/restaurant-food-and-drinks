@@ -26,13 +26,14 @@ export class PrimarydishPage implements OnInit {
     var unidad = document.getElementById('unidad-' + i);
     unidad!.innerText = String(Number(unidad!.innerText) + 1);
     this.total += this.cuenta[Number(i)] 
+    this.menu.cuentaTotal += this.cuenta[Number(i)]
   }
 
   delete(i: string) {
     var unidad = document.getElementById('unidad-' + i);
     if (Number(unidad!.innerText) > 0) {
       unidad!.innerText = String(Number(unidad!.innerText) - 1);
-      this.total -= this.cuenta[Number(i)]
+      this.menu.cuentaTotal -= this.cuenta[Number(i)]
     }
 
   }
