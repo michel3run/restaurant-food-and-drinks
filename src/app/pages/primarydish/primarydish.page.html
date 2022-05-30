@@ -1,15 +1,24 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>primarydish</ion-title>
+    <ion-title>Primer Plato</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-list>
-    <ion-item *ngFor="let item of arr;let i =index">
-      <ion-label>
+    <ion-item  *ngFor="let item of primeros; let i =index">
+      <ion-label >
         {{item}}
       </ion-label>
+      <ion-label color="dark" position="stacked">Unidad</ion-label>
+      <ion-input id="unidad-{{i}}" min="0" value="0" readonly ></ion-input>
+      <ion-button color="#000000" id="boton-add-{{i}}"  (click)="add(i)">Añadir</ion-button>
+      <ion-button color="tertiary" id="boton-delete-{{i}}"  (click)="delete(i)">Quitar</ion-button>
+
     </ion-item>
+    <br>
+    <ion-label>
+      Precio total: {{total}}€
+    </ion-label>
   </ion-list>
 </ion-content>

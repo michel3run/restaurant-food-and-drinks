@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { element } from 'protractor';
 import { ApiService } from 'src/app/service/api/api.service';
 import { MenuService } from 'src/app/service/menu/menu.service';
 
@@ -8,17 +9,27 @@ import { MenuService } from 'src/app/service/menu/menu.service';
   styleUrls: ['./primarydish.page.scss'],
 })
 export class PrimarydishPage implements OnInit {
-  arr=[];
-  constructor(private api : ApiService ,  private menu: MenuService) { }
+  primeros = [];
+  total: number = 10
+  constructor(private api: ApiService, private menu: MenuService) { }
 
   ngOnInit() {
-    this.menu.showMenu=true
-    this.api.getAllProduct().subscribe((data)=>{
-      for(let item of data){
-        this.arr.push(item.nombre + " "+item.precio+"€")
+    this.menu.showMenu = true
+    this.api.getAllProduct().subscribe((data) => {
+      for (let item of data) {
+        this.primeros.push(item.nombre + " " + item.precio + "€")
       }
-      console.log(data)
     })
   }
-
+  add(i:string) {
+  var unidad =  document.getElementById('unidad-'+i);
+   unidad!.innerText =String(Number(unidad!.innerText) + 1)  ;
+  }
+  delete(i:string) {
+    var unidad =  document.getElementById('unidad-'+i);
+    if (Number(unidad!.innerText)>0) {
+      unidad!.innerText =String(Number(unidad!.innerText) - 1);
+    }
+     
+  }
 }
