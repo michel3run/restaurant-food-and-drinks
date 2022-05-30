@@ -1,11 +1,11 @@
 <ion-app>
-  <ion-split-pane contentId="main-content">
-    <ion-menu *ngIf="islogin" contentId="main-content" type="overlay">
-      <ion-content>
+  <ion-split-pane contentId="main-content" >
+    <ion-menu  contentId="main-content" type="overlay">
+      <ion-content *ngIf="menu.showMenu">
         <ion-list id="inbox-list">
           <ion-list-header>Restaurant food and drinks</ion-list-header>
 
-          <ion-menu-toggle auto-hide=false *ngFor="let p of appPages; let i = index">
+          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
             <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
               <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
               <ion-label>{{ p.title }} </ion-label>

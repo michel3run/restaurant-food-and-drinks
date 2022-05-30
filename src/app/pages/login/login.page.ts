@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppComponent } from 'src/app/app.component';
+import { MenuService } from 'src/app/service/menu/menu.service';
 import { ApiService } from '../../service/api/api.service';
 @Component({
   selector: 'app-login',
@@ -9,7 +10,7 @@ import { ApiService } from '../../service/api/api.service';
 })
 export class LoginPage implements OnInit {
 
-  constructor(private router: Router, private api: ApiService) {
+  constructor(private router: Router, private api: ApiService, private menu:MenuService) {
   }
 
   ngOnInit() {
@@ -18,7 +19,7 @@ export class LoginPage implements OnInit {
 
 
   login() {
-    const prueba = new AppComponent
+    this.menu.showMenu=!this.menu.showMenu
     /* this.api.getAllUser().subscribe(data=>{
        console.log(data)
      })*/
@@ -27,12 +28,9 @@ export class LoginPage implements OnInit {
         console.log(data)
       })*/
 
-    this.api.postUser("login", "contraseña").subscribe()/*.subscribe((data)=>{
-      console.log(data)
+    //this.api.postUser("login", "contraseña").subscribe()
 
-    })*/
-
-    // this.router.navigateByUrl("primarydish")
+     this.router.navigateByUrl("primarydish")
 
   }
 }
