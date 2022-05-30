@@ -9,7 +9,7 @@ import { ApiService } from 'src/app/service/api/api.service';
 export class RegisterPage implements OnInit {
 
   constructor(private toastController: ToastController, private api: ApiService) { }
-  async presentToast() {
+  async passToast() {
     const toast = await this.toastController.create({
       message: 'Error la contraseña no son iguales.',
       duration: 2000
@@ -43,17 +43,22 @@ export class RegisterPage implements OnInit {
     let verifyemail: boolean
     this.api.searchUser(email).subscribe((data) => {
       if (data.length > 0) {
-        verifyemail = true
+        error=true
+        this.emailToast()
+        //verifyemail = true
       } else {
-        verifyemail = false
+        //verifyemail = false
       }
       
     })
+  
+    
+    
    
     if (password != repeatPassword) {
-      this.presentToast()
+      this.passToast()
       error = true;
-    } else if (verifyemail) {
+    } else if (false) {
       this.emailToast();
       error = true;
     } else {
