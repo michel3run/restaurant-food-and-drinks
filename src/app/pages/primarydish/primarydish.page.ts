@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { element } from 'protractor';
 import { ApiService } from 'src/app/service/api/api.service';
 import { MenuService } from 'src/app/service/menu/menu.service';
 
@@ -10,7 +9,8 @@ import { MenuService } from 'src/app/service/menu/menu.service';
 })
 export class PrimarydishPage implements OnInit {
   primeros = [];
-  total: number = 10
+  cuenta = [];
+  total: number = 0
   constructor(private api: ApiService, private menu: MenuService) { }
 
   ngOnInit() {
@@ -18,18 +18,22 @@ export class PrimarydishPage implements OnInit {
     this.api.getAllProduct().subscribe((data) => {
       for (let item of data) {
         this.primeros.push(item.nombre + " " + item.precio + "€")
+        this.cuenta.push(Number(item.precio))
       }
     })
   }
-  add(i:string) {
-  var unidad =  document.getElementById('unidad-'+i);
-   unidad!.innerText =String(Number(unidad!.innerText) + 1)  ;
+  add(i:string ) {
+    var unidad = document.getElementById('unidad-' + i);
+    unidad!.innerText = String(Number(unidad!.innerText) + 1);
+    this.total += this.cuenta[Number(i)] 
   }
-  delete(i:string) {
-    var unidad =  document.getElementById('unidad-'+i);
-    if (Number(unidad!.innerText)>0) {
-      unidad!.innerText =String(Number(unidad!.innerText) - 1);
+
+  delete(i: string) {
+    var unidad = document.getElementById('unidad-' + i);
+    if (Number(unidad!.innerText) > 0) {
+      unidad!.innerText = String(Number(unidad!.innerText) - 1);
+      this.total -= this.cuenta[Number(i)]
     }
-     
+
   }
 }
