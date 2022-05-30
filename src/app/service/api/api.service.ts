@@ -10,9 +10,9 @@ export class ApiService {
   constructor(private http:HttpClient) { }
 
   searchUser(email:string):Observable<listaUser[]>{
-    const headers = { 'content-type': 'application/json'} 
-    const body = { email : email  };
-    return this.http.get<listaUser[]>(this.url + '/searchUser',{});
+    /*const headers = { 'content-type': 'application/json'} 
+    const body = { email : email  };*/
+    return this.http.get<listaUser[]>(this.url + '/searchUser/'+email);
 
   }
 

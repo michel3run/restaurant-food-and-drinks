@@ -7,10 +7,10 @@ function createRouter(db) {
   // the routes are defined here
 
 // Al registrar ver si alguien ya tiene ese correo
-  router.get('/searchUser', function (req, res, next) {
+  router.get('/searchUser/:email', function (req, res, next) {
     db.query(
       'SELECT * FROM usuario where email=? ',
-      [req.body.email],
+      [req.params.email],
       (error, results) => {
         if (error) {
           console.log(error);

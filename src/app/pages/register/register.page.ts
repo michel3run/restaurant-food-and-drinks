@@ -8,7 +8,7 @@ import { ApiService } from 'src/app/service/api/api.service';
 })
 export class RegisterPage implements OnInit {
 
-  constructor(private toastController: ToastController , private api: ApiService) { }
+  constructor(private toastController: ToastController, private api: ApiService) { }
   async presentToast() {
     const toast = await this.toastController.create({
       message: 'Error la contraseña no son iguales.',
@@ -16,19 +16,55 @@ export class RegisterPage implements OnInit {
     });
     toast.present();
   }
+
+  async emailToast() {
+    const toast = await this.toastController.create({
+      message: 'Error el correo ya existe.',
+      duration: 2000
+    });
+    toast.present();
+  }
+  async creditCardToast() {
+    const toast = await this.toastController.create({
+      message: 'Error el correo ya existe.',
+      duration: 2000
+    });
+    toast.present();
+  }
+
   ngOnInit() {
   }
   register() {
+    let error = false
     const email = (document.getElementById("email") as HTMLInputElement).value;
     const password = (document.getElementById("password") as HTMLInputElement).value;
     const repeatPassword = (document.getElementById("repeatPassword") as HTMLInputElement).value;
     const creditCard = (document.getElementById("creditCard") as HTMLInputElement).value;
-    const verifyEmail = this.api.searchUser(email)
+    let verifyemail: boolean
+    this.api.searchUser(email).subscribe((data) => {
+      if (data.length > 0) {
+        verifyemail = true
+      } else {
+        verifyemail = false
+      }
+      
+    })
+   
     if (password != repeatPassword) {
       this.presentToast()
-    } else if(email){
-
+      error = true;
+    } else if (verifyemail) {
+      this.emailToast();
+      error = true;
+    } else {
+      if (creditCard.length < 16) {
+        this.creditCardToast()
+        error= true;
+      }
     }
 
+    if (!error) {
+      // enviar a la bbdd
+    }
   }
 }
