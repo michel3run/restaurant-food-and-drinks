@@ -30,7 +30,7 @@ export class SecondarydishPage implements OnInit {
   }
   ngOnInit() {
     this.menu.showMenu = true
-    this.api.getAllProduct().subscribe((data) => {
+    this.api.getAllProduct("segundo").subscribe((data) => {
       for (let item of data) {
         this.segundos.push(item.nombre + " " + item.precio + "€")
         this.cuenta.push(Number(item.precio))

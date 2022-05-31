@@ -1,4 +1,4 @@
-export interface listaPrimeros{
+export interface listaProductos{
     id:number;
     nombre:string;
     precio:number;

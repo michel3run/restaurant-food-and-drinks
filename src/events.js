@@ -38,10 +38,12 @@ function createRouter(db) {
     );
   });
 
-  //Listar todos los primeros
-  router.get('/primeros', function (req, res, next) {
+  //Listar todos los productos segun su tipo
+  router.get('/productos/:tipo', function (req, res, next) {
     db.query(
-      'SELECT * FROM productos ',
+      'SELECT * FROM productos where tipo=?',
+      [req.params.tipo],
+
       (error, results) => {
         if (error) {
           console.log(error);

@@ -32,7 +32,7 @@ export class PrimarydishPage implements OnInit {
   }
   ngOnInit() {
     this.menu.showMenu = true
-    this.api.getAllProduct().subscribe((data) => {
+    this.api.getAllProduct("primero").subscribe((data) => {
       for (let item of data) {
         this.primeros.push(item.nombre + " " + item.precio + "€")
         this.cuenta.push(Number(item.precio))
