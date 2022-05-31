@@ -24,8 +24,18 @@ export class PrimarydishPage implements OnInit {
     
     
   }
-  ngAfterViewInit(){
-    console.log("finasl")
+
+  ngAfterContentChecked(){
+    for(let item of this.keys){
+      console.log(item)
+      var unidad = document.getElementById(item);
+      try {
+        unidad!.innerText = Cookie.get(item);
+      } catch (error) {
+        
+      }
+      
+    }
   }
   ngOnInit() {
     this.menu.showMenu = true
