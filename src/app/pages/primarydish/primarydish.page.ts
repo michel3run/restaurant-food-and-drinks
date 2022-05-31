@@ -3,6 +3,7 @@ import { ApiService } from 'src/app/service/api/api.service';
 import { MenuService } from 'src/app/service/menu/menu.service';
 import { Cookie } from 'ng2-cookies';
 import { CookiesService } from 'src/app/service/cookie/cookies.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-primarydish',
@@ -13,20 +14,20 @@ export class PrimarydishPage implements OnInit {
   primeros = [];
   cuenta = [];
 
-  constructor(private api: ApiService, private menu: MenuService , private cookieService :CookiesService) {
+  constructor(private api: ApiService, private menu: MenuService, private cookieService: CookiesService, private router: Router) {
     this.cookieService.update()
   }
 
-  ngAfterContentChecked(){
-    for(let item of  this.cookieService.keys){
+  ngAfterContentChecked() {
+    for (let item of this.cookieService.keys) {
       console.log(item)
       var unidad = document.getElementById(item);
       try {
         unidad!.innerText = Cookie.get(item);
       } catch (error) {
-        
+
       }
-      
+
     }
     this.menu.cuentaTotal = Number(Cookie.get('total'))
   }
@@ -38,23 +39,27 @@ export class PrimarydishPage implements OnInit {
         this.cuenta.push(Number(item.precio))
       }
 
-     
+
     })
-  
+
+  }
+
+  signOff() {
+    this.cookieService.removeAll();
+    this.menu.showMenu = false;
+    this.router.navigateByUrl('login')
   }
 
 
-  
 
-
-  add(i:string ) {
+  add(i: string) {
     var unidad = document.getElementById('unidad-primeros-' + i);
     unidad!.innerText = String(Number(unidad!.innerText) + 1);
     this.menu.cuentaTotal += this.cuenta[Number(i)]
-    this.cookieService.addCookie('unidad-primeros-' + i,unidad!.innerText)
-    this.cookieService.addCookie('total',String(this.menu.cuentaTotal))
+    this.cookieService.addCookie('unidad-primeros-' + i, unidad!.innerText)
+    this.cookieService.addCookie('total', String(this.menu.cuentaTotal))
     this.cookieService.update()
-    
+
   }
 
   delete(i: string) {
@@ -63,8 +68,8 @@ export class PrimarydishPage implements OnInit {
       unidad!.innerText = String(Number(unidad!.innerText) - 1);
       this.menu.cuentaTotal -= this.cuenta[Number(i)]
     }
-    this.cookieService.addCookie('unidad-primeros-' + i,unidad!.innerText)
-    this.cookieService.addCookie('total',String(this.menu.cuentaTotal))
+    this.cookieService.addCookie('unidad-primeros-' + i, unidad!.innerText)
+    this.cookieService.addCookie('total', String(this.menu.cuentaTotal))
 
     this.cookieService.update()
   }

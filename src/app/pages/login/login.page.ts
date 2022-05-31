@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
+import { CookiesService } from 'src/app/service/cookie/cookies.service';
 import { MenuService } from 'src/app/service/menu/menu.service';
 import { ApiService } from '../../service/api/api.service';
 @Component({
@@ -10,7 +11,7 @@ import { ApiService } from '../../service/api/api.service';
 })
 export class LoginPage implements OnInit {
 
-  constructor(private router: Router, private api: ApiService, private menu: MenuService , private toastController: ToastController) {
+  constructor(private router: Router, private api: ApiService, private menu: MenuService , private toastController: ToastController ) {
   }
 
   ngOnInit() {
