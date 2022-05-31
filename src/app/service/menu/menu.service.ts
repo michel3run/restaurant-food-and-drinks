@@ -6,7 +6,9 @@ import { Injectable } from '@angular/core';
 export class MenuService {
   showMenu:boolean =false;
   cuentaTotal:number=0;
-  constructor() { }
+  constructor() {
+    Math.min(this.cuentaTotal,0)
+   }
   
   
 }
