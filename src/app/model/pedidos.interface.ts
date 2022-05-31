@@ -1,7 +1,7 @@
 export interface listaPedidos{
     id:number;
     idUser:number;
-    fecha:Date;
+    fecha:string;
     estado:string;
     total:number;
 }

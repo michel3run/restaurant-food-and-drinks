@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/service/api/api.service';
 import { MenuService } from 'src/app/service/menu/menu.service';
-import { Cookie } from 'ng2-cookies';
 import { CookiesService } from 'src/app/service/cookie/cookies.service';
 import { Router } from '@angular/router';
 
@@ -26,7 +25,17 @@ export class PayRequestPage implements OnInit {
   }
   pay(){
     let dateTime = new Date()
-    console.log(this.cuentaTotal)
-    this.api.postPedidos(this.menu.userID,dateTime,"pagado",this.cuentaTotal).subscribe()
+    let fecha =dateTime.toLocaleDateString().split("/").join("-")+" "+dateTime.toLocaleTimeString()
+    
+    this.api.postPedidos(this.menu.userID,fecha,"pagado",this.cuentaTotal).subscribe();
+
+     this.api.getProductDate(this.menu.userID,fecha).subscribe(( data=>{
+        
+       for(let item of this.menu.ticket){
+          this.api.postLineaPedidos(data[0].id,item).subscribe();
+       }
+       
+    }))
   }
 }
+

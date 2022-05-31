@@ -32,17 +32,27 @@ export class ApiService {
 
   }
     //insertar pedido 
-    postPedidos(idUser:number,fecha:Date, estado:string,total:number):Observable<listaPedidos[]>{
+    postPedidos(idUser:number,fecha:string, estado:string,total:number):Observable<listaPedidos[]>{
       const headers = { 'content-type': 'application/json'} 
     const body = { idUser: idUser ,fecha:fecha,estado:estado,total:total };
      return this.http.post<any>(this.url+'/insertPedidos',body,{'headers':headers})
   
     }
 
+    
 
+  //pedido por id y fecha 
+  getProductDate(id:number , fecha:string):Observable<listaPedidos[]>{
+    return this.http.get<listaPedidos[]>(this.url + `/pedidos/${id}/${fecha}`);
 
-
-
+  }
+    //insertar lineapedidos 
+    postLineaPedidos(idPedidos:number,idProductos:number):Observable<listaPedidos[]>{
+      const headers = { 'content-type': 'application/json'} 
+    const body = { idPedidos: idPedidos ,idProductos:idProductos };
+     return this.http.post<any>(this.url+'/lineaPedidos',body,{'headers':headers})
+  
+    }
   //ejemplos
   getAllUser():Observable<listaUser[]>{
     return this.http.get<listaUser[]>(this.url);

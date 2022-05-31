@@ -55,6 +55,7 @@ function createRouter(db) {
     );
   });
   //Buscar producto por id
+
   router.get('/productos/:id', function (req, res, next) {
     db.query(
       'SELECT * FROM productos where id=?',
@@ -87,12 +88,11 @@ function createRouter(db) {
     );
   });
 
-    //Buscar id de usuario y hora
-    router.get('/productos/:id/:fecha', function (req, res, next) {
+    //Buscar pedido por idUser y fecha
+    router.get('/pedidos/:idUser/:fecha', function (req, res, next) {
       db.query(
-        'SELECT * FROM productos where id=?',
-        [req.params.id],
-  
+        'SELECT * FROM pedidos where idUser=? and fecha=?',
+        [req.params.idUser, req.params.fecha],
         (error, results) => {
           if (error) {
             console.log(error);
@@ -103,6 +103,23 @@ function createRouter(db) {
         }
       );
     });
+
+    //insertar lineapedidos
+  router.post('/lineaPedidos', (req, res, next) => {
+    db.query(
+      'INSERT INTO lineapedidos(idPedidos,idProductos)  VALUES (?,?)',
+      [req.body.idPedidos, req.body.idProductos],
+      (error) => {
+        if (error) {
+          console.error(error);
+          res.status(500).json({ status: 'error' });
+        } else {
+          res.status(200).json({ status: 'ok' });
+        }
+      }
+    );
+  });
+
   //ejemplos
   router.get('/user', function (req, res, next) {
     db.query(
