@@ -9,22 +9,24 @@ import { CookiesService } from 'src/app/service/cookie/cookies.service';
   styleUrls: ['./secondarydish.page.scss'],
 })
 export class SecondarydishPage implements OnInit {
+  segundosID = [];
+
   segundos = [];
-  cuenta = [];
-  constructor( private api: ApiService, private menu: MenuService, private cookieService: CookiesService) {
+  cuenta = {};
+  constructor(private api: ApiService, private menu: MenuService, private cookieService: CookiesService) {
     this.cookieService.update()
   }
 
-  ngAfterContentChecked(){
-    for(let item of  this.cookieService.keys){
+  ngAfterContentChecked() {
+    for (let item of this.cookieService.keys) {
       console.log(item)
       var unidad = document.getElementById(item);
       try {
         unidad!.innerText = Cookie.get(item);
       } catch (error) {
-        
+
       }
-      
+
     }
     this.menu.cuentaTotal = Number(Cookie.get('total'))
   }
@@ -33,26 +35,27 @@ export class SecondarydishPage implements OnInit {
     this.api.getAllProduct("segundo").subscribe((data) => {
       for (let item of data) {
         this.segundos.push(item.nombre + " " + item.precio + "€")
-        this.cuenta.push(Number(item.precio))
+        this.cuenta[item.id] = item.precio
+        this.segundosID.push(Number(item.id))
       }
 
-     
+
     })
-  
+
   }
 
 
-  
 
 
-  add(i:string ) {
+
+  add(i: string) {
     var unidad = document.getElementById('unidad-segundos-' + i);
     unidad!.innerText = String(Number(unidad!.innerText) + 1);
     this.menu.cuentaTotal += this.cuenta[Number(i)]
-    this.cookieService.addCookie('unidad-segundos-' + i,unidad!.innerText)
-    this.cookieService.addCookie('total',String(this.menu.cuentaTotal))
+    this.cookieService.addCookie('unidad-segundos-' + i, unidad!.innerText)
+    this.cookieService.addCookie('total', String(this.menu.cuentaTotal))
     this.cookieService.update()
-    
+
   }
 
   delete(i: string) {
@@ -61,8 +64,8 @@ export class SecondarydishPage implements OnInit {
       unidad!.innerText = String(Number(unidad!.innerText) - 1);
       this.menu.cuentaTotal -= this.cuenta[Number(i)]
     }
-    this.cookieService.addCookie('unidad-segundos-' + i,unidad!.innerText)
-    this.cookieService.addCookie('total',String(this.menu.cuentaTotal))
+    this.cookieService.addCookie('unidad-segundos-' + i, unidad!.innerText)
+    this.cookieService.addCookie('total', String(this.menu.cuentaTotal))
 
     this.cookieService.update()
   }

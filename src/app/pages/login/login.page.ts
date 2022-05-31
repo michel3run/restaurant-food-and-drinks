@@ -43,6 +43,9 @@ export class LoginPage implements OnInit {
       console.log(data)
       if (data.length == 1) {
         this.menu.showMenu = !this.menu.showMenu
+
+        this.menu.userID =data[0].id
+
         this.router.navigateByUrl("primarydish")
       } else {
         this.errorToast()

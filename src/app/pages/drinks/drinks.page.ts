@@ -11,7 +11,8 @@ import { Router } from '@angular/router';
 })
 export class DrinksPage implements OnInit {
   bebidas = [];
-  cuenta = [];
+  cuenta = {};
+  bebidasID = [];
   constructor( private router: Router,private api: ApiService, private menu: MenuService, private cookieService: CookiesService) {
     this.cookieService.update()
   }
@@ -34,7 +35,9 @@ export class DrinksPage implements OnInit {
     this.api.getAllProduct("bebida").subscribe((data) => {
       for (let item of data) {
         this.bebidas.push(item.nombre + " " + item.precio + "€")
-        this.cuenta.push(Number(item.precio))
+        this.cuenta[item.id] = item.precio
+        this.bebidasID.push(Number(item.id));
+
       }
 
      

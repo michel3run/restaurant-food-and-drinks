@@ -13,9 +13,9 @@
         {{item}}
       </ion-label>
       <ion-label color="dark" position="stacked">Unidad</ion-label>
-      <ion-input id="unidad-bebidas-{{i}}" min="0" value="" readonly ></ion-input>
-      <ion-button color="#000000" id="boton-add-{{i}}"  (click)="add(i)">Añadir</ion-button>
-      <ion-button color="tertiary" id="boton-delete-{{i}}"  (click)="delete(i)">Quitar</ion-button>
+      <ion-input id="unidad-bebidas-{{bebidasID[i]}}" min="0" value="" readonly ></ion-input>
+      <ion-button color="#000000" id="boton-add-{{bebidasID[i]}}"  (click)="add(bebidasID[i])">Añadir</ion-button>
+      <ion-button color="tertiary" id="boton-delete-{{bebidasID[i]}}"  (click)="delete(bebidasID[i])">Quitar</ion-button>
 
     </ion-item>
 

@@ -7,14 +7,14 @@
 
 <ion-content>
   <ion-list>
-    <ion-item *ngFor="let item of primeros; let i =index">
+    <ion-item *ngFor="let item of primeros; let i =index ">
       <ion-label>
         {{item}}
       </ion-label>
       <ion-label color="dark" position="stacked">Unidad</ion-label>
-      <ion-input id="unidad-primeros-{{i}}" min="0" value="" readonly></ion-input>
-      <ion-button color="#000000" id="boton-add-{{i}}" (click)="add(i)">Añadir</ion-button>
-      <ion-button color="tertiary" id="boton-delete-{{i}}" (click)="delete(i)">Quitar</ion-button>
+      <ion-input id="unidad-primeros-{{primerosID[i]}}" min="0" value="" readonly></ion-input>
+      <ion-button color="#000000" id="boton-add-{{primerosID[i]}}" (click)="add(primerosID[i])">Añadir</ion-button>
+      <ion-button color="tertiary" id="boton-delete-{{primerosID[i]}}" (click)="delete(primerosID[i])">Quitar</ion-button>
 
     </ion-item>
 

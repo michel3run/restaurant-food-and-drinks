@@ -12,9 +12,9 @@
         {{item}}
       </ion-label>
       <ion-label color="dark" position="stacked">Unidad</ion-label>
-      <ion-input id="unidad-segundos-{{i}}" min="0" value="" readonly ></ion-input>
-      <ion-button color="#000000" id="boton-add-{{i}}"  (click)="add(i)">Añadir</ion-button>
-      <ion-button color="tertiary" id="boton-delete-{{i}}"  (click)="delete(i)">Quitar</ion-button>
+      <ion-input id="unidad-segundos-{{segundosID[i]}}" min="0" value="" readonly ></ion-input>
+      <ion-button color="#000000" id="boton-add-{{segundosID[i]}}"  (click)="add(segundosID[i])">Añadir</ion-button>
+      <ion-button color="tertiary" id="boton-delete-{{segundosID[i]}}"  (click)="delete(segundosID[i])">Quitar</ion-button>
 
     </ion-item>
 

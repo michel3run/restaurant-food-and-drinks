@@ -12,8 +12,12 @@ export class DessertPage implements OnInit {
 
   postres = [];
   cuenta = [];
+  postresID = [];
+
   constructor( private api: ApiService, private menu: MenuService, private cookieService: CookiesService) {
     this.cookieService.update()
+    this.menu.showMenu = true
+
   }
 
   ngAfterContentChecked(){
@@ -34,7 +38,9 @@ export class DessertPage implements OnInit {
     this.api.getAllProduct("postre").subscribe((data) => {
       for (let item of data) {
         this.postres.push(item.nombre + " " + item.precio + "€")
-        this.cuenta.push(Number(item.precio))
+        this.cuenta[item.id] = item.precio
+        this.postresID.push(Number(item.id));
+
       }
 
      
@@ -47,7 +53,7 @@ export class DessertPage implements OnInit {
 
 
   add(i:string ) {
-    var unidad = document.getElementById('unidad-segundos-' + i);
+    var unidad = document.getElementById('unidad-postres-' + i);
     unidad!.innerText = String(Number(unidad!.innerText) + 1);
     this.menu.cuentaTotal += this.cuenta[Number(i)]
     this.cookieService.addCookie('unidad-postres-' + i,unidad!.innerText)

@@ -12,10 +12,11 @@ import { Router } from '@angular/router';
 })
 export class PrimarydishPage implements OnInit {
   primeros = [];
-  cuenta = [];
-
+  cuenta = {};
+  primerosID = [];
   constructor(private api: ApiService, private menu: MenuService, private cookieService: CookiesService, private router: Router) {
     this.cookieService.update()
+    this.menu.showMenu = true
   }
 
   ngAfterContentChecked() {
@@ -32,14 +33,17 @@ export class PrimarydishPage implements OnInit {
     this.menu.cuentaTotal = Number(Cookie.get('total'))
   }
   ngOnInit() {
-    this.menu.showMenu = true
+
     this.api.getAllProduct("primero").subscribe((data) => {
+
       for (let item of data) {
         this.primeros.push(item.nombre + " " + item.precio + "€")
-        this.cuenta.push(Number(item.precio))
+        this.cuenta[item.id] = item.precio
+        this.primerosID.push(Number(item.id));
+
       }
 
-      
+
     })
 
   }
@@ -51,7 +55,7 @@ export class PrimarydishPage implements OnInit {
   add(i: string) {
     var unidad = document.getElementById('unidad-primeros-' + i);
     unidad!.innerText = String(Number(unidad!.innerText) + 1);
-    this.menu.cuentaTotal += this.cuenta[Number(i)]
+    this.menu.cuentaTotal += this.cuenta[i]
     this.cookieService.addCookie('unidad-primeros-' + i, unidad!.innerText)
     this.cookieService.addCookie('total', String(this.menu.cuentaTotal))
     this.cookieService.update()
@@ -62,7 +66,7 @@ export class PrimarydishPage implements OnInit {
     var unidad = document.getElementById('unidad-primeros-' + i);
     if (Number(unidad!.innerText) > 0) {
       unidad!.innerText = String(Number(unidad!.innerText) - 1);
-      this.menu.cuentaTotal -= this.cuenta[Number(i)]
+      this.menu.cuentaTotal -= this.cuenta[i]
     }
     this.cookieService.addCookie('unidad-primeros-' + i, unidad!.innerText)
     this.cookieService.addCookie('total', String(this.menu.cuentaTotal))

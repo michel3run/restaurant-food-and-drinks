@@ -13,9 +13,9 @@
         {{item}}
       </ion-label>
       <ion-label color="dark" position="stacked">Unidad</ion-label>
-      <ion-input id="unidad-postres-{{i}}" min="0" value="" readonly></ion-input>
-      <ion-button color="#000000" id="boton-add-{{i}}" (click)="add(i)">Añadir</ion-button>
-      <ion-button color="tertiary" id="boton-delete-{{i}}" (click)="delete(i)">Quitar</ion-button>
+      <ion-input id="unidad-postres-{{postresID[i]}}" min="0" value="" readonly></ion-input>
+      <ion-button color="#000000" id="boton-add-{{postresID[i]}}" (click)="add(postresID[i])">Añadir</ion-button>
+      <ion-button color="tertiary" id="boton-delete-{{postresID[i]}}" (click)="delete(postresID[i])">Quitar</ion-button>
 
     </ion-item>
 
