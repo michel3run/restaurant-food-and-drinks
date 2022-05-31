@@ -15,13 +15,15 @@ export class PayRequestPage implements OnInit {
   userID:number
   cuentaTotal:number
   ticket;
-
+  ticketTraducido=[]
   ngOnInit() {
     this.menu.showMenu=true
     this.ticket=this.menu.ticket
     this.userID = this.menu.userID
     this.cuentaTotal=this.menu.cuentaTotal
-
+    for(let item of this.ticket){
+      this.ticketTraducido.push(this.api.getProductID(item).subscribe()) ;
+    }
   }
   pay(){
     let dateTime = new Date()
@@ -38,4 +40,6 @@ export class PayRequestPage implements OnInit {
     }))
   }
 }
+
+
 

@@ -56,11 +56,10 @@ function createRouter(db) {
   });
   //Buscar producto por id
 
-  router.get('/productos/:id', function (req, res, next) {
+  router.get('/productosID/:id', function (req, res, next) {
     db.query(
-      'SELECT * FROM productos where id=?',
+      'SELECT * FROM productos where id=? ',
       [req.params.id],
-
       (error, results) => {
         if (error) {
           console.log(error);
