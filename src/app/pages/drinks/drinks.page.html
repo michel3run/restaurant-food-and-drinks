@@ -1,23 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>Bebidas</ion-title>
-    <ion-button  style="float: right ; " id="nested-button">
-      <ion-icon slot="icon-only" name="person-circle"></ion-icon>
-    </ion-button>
-    <ion-popover trigger="nested-button" [dismissOnSelect]="true">
-      <ng-template>
-        <ion-content>
-          <ion-list>
-            <ion-item (click)="signOff()" [button]="true" [detail]="false">
-              <ion-label>Cerrar sesión</ion-label>
-            </ion-item>
-            <ion-item [button]="true" [detail]="false">
-              <ion-label>Cancelar</ion-label>
-            </ion-item>
-          </ion-list>
-        </ion-content>
-      </ng-template>
-    </ion-popover>
+
   </ion-toolbar>
 
 </ion-header>

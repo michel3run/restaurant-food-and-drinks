@@ -3,6 +3,7 @@ import { ApiService } from 'src/app/service/api/api.service';
 import { MenuService } from 'src/app/service/menu/menu.service';
 import { Cookie } from 'ng2-cookies';
 import { CookiesService } from 'src/app/service/cookie/cookies.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-secondarydish',
   templateUrl: './secondarydish.page.html',
@@ -11,7 +12,7 @@ import { CookiesService } from 'src/app/service/cookie/cookies.service';
 export class SecondarydishPage implements OnInit {
   segundos = [];
   cuenta = [];
-  constructor(private api: ApiService, private menu: MenuService, private cookieService: CookiesService) {
+  constructor( private router: Router,private api: ApiService, private menu: MenuService, private cookieService: CookiesService) {
     this.cookieService.update()
   }
 

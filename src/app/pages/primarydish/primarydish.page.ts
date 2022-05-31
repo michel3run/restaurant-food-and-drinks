@@ -39,16 +39,12 @@ export class PrimarydishPage implements OnInit {
         this.cuenta.push(Number(item.precio))
       }
 
-
+      
     })
 
   }
 
-  signOff() {
-    this.cookieService.removeAll();
-    this.menu.showMenu = false;
-    this.router.navigateByUrl('login')
-  }
+
 
 
 
