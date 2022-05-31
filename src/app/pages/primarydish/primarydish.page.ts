@@ -12,12 +12,7 @@ import { CookiesService } from 'src/app/service/cookie/cookies.service';
 export class PrimarydishPage implements OnInit {
   primeros = [];
   cuenta = [];
-  cookies: Object;
-  keys: Array<string>;
-  cName: string;
-  cValue: string;
-  rName: string;
-  checkName: string;
+
   constructor(private api: ApiService, private menu: MenuService , private cookieService :CookiesService) {
     this.cookieService.update()
   }
@@ -53,22 +48,22 @@ export class PrimarydishPage implements OnInit {
 
 
   add(i:string ) {
-    var unidad = document.getElementById('unidad-' + i);
+    var unidad = document.getElementById('unidad-primeros-' + i);
     unidad!.innerText = String(Number(unidad!.innerText) + 1);
     this.menu.cuentaTotal += this.cuenta[Number(i)]
-    this.cookieService.addCookie('unidad-' + i,unidad!.innerText)
+    this.cookieService.addCookie('unidad-primeros-' + i,unidad!.innerText)
     this.cookieService.addCookie('total',String(this.menu.cuentaTotal))
     this.cookieService.update()
     
   }
 
   delete(i: string) {
-    var unidad = document.getElementById('unidad-' + i);
+    var unidad = document.getElementById('unidad-primeros-' + i);
     if (Number(unidad!.innerText) > 0) {
       unidad!.innerText = String(Number(unidad!.innerText) - 1);
       this.menu.cuentaTotal -= this.cuenta[Number(i)]
     }
-    this.cookieService.addCookie('unidad-' + i,unidad!.innerText)
+    this.cookieService.addCookie('unidad-primeros-' + i,unidad!.innerText)
     this.cookieService.addCookie('total',String(this.menu.cuentaTotal))
 
     this.cookieService.update()
