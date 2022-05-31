@@ -7,5 +7,16 @@
 </ion-header>
 
 <ion-content>
-  <p>its working drinks</p>
-</ion-content>
+  <ion-list>
+    <ion-item  *ngFor="let item of bebidas; let i =index">
+      <ion-label >
+        {{item}}
+      </ion-label>
+      <ion-label color="dark" position="stacked">Unidad</ion-label>
+      <ion-input id="unidad-bebidas-{{i}}" min="0" value="" readonly ></ion-input>
+      <ion-button color="#000000" id="boton-add-{{i}}"  (click)="add(i)">Añadir</ion-button>
+      <ion-button color="tertiary" id="boton-delete-{{i}}"  (click)="delete(i)">Quitar</ion-button>
+
+    </ion-item>
+
+  </ion-list></ion-content>
