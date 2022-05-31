@@ -3,6 +3,7 @@ import {listaUser} from '../../model/usuario.interface'
 import {HttpClient} from '@angular/common/http'
 import { Observable } from 'rxjs';
 import { listaProductos } from 'src/app/model/primeros.interface';
+import { listaPedidos } from 'src/app/model/pedidos.interface';
 @Injectable({
   providedIn: 'root'
 })
@@ -23,8 +24,20 @@ export class ApiService {
   //Todos los productos
   getAllProduct(tipo:string):Observable<listaProductos[]>{
     return this.http.get<listaProductos[]>(this.url + `/productos/${tipo}`);
+  }
+
+  //Porducto por id 
+  getProductID(id:string):Observable<listaProductos[]>{
+    return this.http.get<listaProductos[]>(this.url + `/productos/${id}`);
 
   }
+    //insertar pedido 
+    postPedidos(idUser:number,fecha:Date, estado:string,total:number):Observable<listaPedidos[]>{
+      const headers = { 'content-type': 'application/json'} 
+    const body = { idUser: idUser ,fecha:fecha,estado:estado,total:total };
+     return this.http.post<any>(this.url+'/insertPedidos',body,{'headers':headers})
+  
+    }
 
 
 

@@ -61,6 +61,7 @@ export class PrimarydishPage implements OnInit {
     this.cookieService.update()
     this.menu.ticket.push(i)
 
+
   }
 
   delete(i: string) {

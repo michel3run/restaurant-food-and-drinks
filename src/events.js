@@ -54,6 +54,55 @@ function createRouter(db) {
       }
     );
   });
+  //Buscar producto por id
+  router.get('/productos/:id', function (req, res, next) {
+    db.query(
+      'SELECT * FROM productos where id=?',
+      [req.params.id],
+
+      (error, results) => {
+        if (error) {
+          console.log(error);
+          res.status(500).json({ status: 'error' });
+        } else {
+          res.status(200).json(results);
+        }
+      }
+    );
+  });
+
+  //insertar pedido
+  router.post('/insertPedidos', (req, res, next) => {
+    db.query(
+      'INSERT INTO pedidos(idUser,fecha,estado,total)  VALUES (?,?,?,?)',
+      [req.body.idUser, req.body.fecha,req.body.estado,req.body.total],
+      (error) => {
+        if (error) {
+          console.error(error);
+          res.status(500).json({ status: 'error' });
+        } else {
+          res.status(200).json({ status: 'ok' });
+        }
+      }
+    );
+  });
+
+    //Buscar id de usuario y hora
+    router.get('/productos/:id/:fecha', function (req, res, next) {
+      db.query(
+        'SELECT * FROM productos where id=?',
+        [req.params.id],
+  
+        (error, results) => {
+          if (error) {
+            console.log(error);
+            res.status(500).json({ status: 'error' });
+          } else {
+            res.status(200).json(results);
+          }
+        }
+      );
+    });
   //ejemplos
   router.get('/user', function (req, res, next) {
     db.query(

@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Pagar y Pedir</ion-title>
+    <ion-title>Pagar y Pedir {{userID}}</ion-title>
 
   </ion-toolbar>
 
@@ -14,6 +14,8 @@
       </ion-label>
 
     </ion-item>
-
   </ion-list>
+
+  <ion-button type="submit" color="primary" expand="block" (click) ="pay()" >Pedir y pagar</ion-button>
+
 </ion-content>
