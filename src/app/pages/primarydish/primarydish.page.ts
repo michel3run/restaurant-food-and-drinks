@@ -59,6 +59,7 @@ export class PrimarydishPage implements OnInit {
     this.cookieService.addCookie('unidad-primeros-' + i, unidad!.innerText)
     this.cookieService.addCookie('total', String(this.menu.cuentaTotal))
     this.cookieService.update()
+    this.menu.ticket.push(i)
 
   }
 
@@ -67,11 +68,17 @@ export class PrimarydishPage implements OnInit {
     if (Number(unidad!.innerText) > 0) {
       unidad!.innerText = String(Number(unidad!.innerText) - 1);
       this.menu.cuentaTotal -= this.cuenta[i]
+      const index = this.menu.ticket.indexOf(i, 0);
+      if (index > -1) {
+        this.menu.ticket.splice(index, 1);
+      }
     }
     this.cookieService.addCookie('unidad-primeros-' + i, unidad!.innerText)
     this.cookieService.addCookie('total', String(this.menu.cuentaTotal))
 
     this.cookieService.update()
+
+
   }
 
 }
