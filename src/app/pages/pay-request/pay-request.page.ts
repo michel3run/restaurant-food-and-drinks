@@ -13,9 +13,20 @@ import { Router } from '@angular/router';
 export class PayRequestPage implements OnInit {
   
   constructor(private api: ApiService, private menu: MenuService, private cookieService: CookiesService, private router: Router) { }
-  ticket = this.menu.ticket
+  userID:number
+  cuentaTotal:number
+  ticket;
+
   ngOnInit() {
     this.menu.showMenu=true
-  }
+    this.ticket=this.menu.ticket
+    this.userID = this.menu.userID
+    this.cuentaTotal=this.menu.cuentaTotal
 
+  }
+  pay(){
+    let dateTime = new Date()
+    console.log(this.cuentaTotal)
+    this.api.postPedidos(this.menu.userID,dateTime,"pagado",this.cuentaTotal).subscribe()
+  }
 }
