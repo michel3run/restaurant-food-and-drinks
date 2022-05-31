@@ -50,19 +50,19 @@ export class DessertPage implements OnInit {
     var unidad = document.getElementById('unidad-segundos-' + i);
     unidad!.innerText = String(Number(unidad!.innerText) + 1);
     this.menu.cuentaTotal += this.cuenta[Number(i)]
-    this.cookieService.addCookie('unidad-segundos-' + i,unidad!.innerText)
+    this.cookieService.addCookie('unidad-postres-' + i,unidad!.innerText)
     this.cookieService.addCookie('total',String(this.menu.cuentaTotal))
     this.cookieService.update()
     
   }
 
   delete(i: string) {
-    var unidad = document.getElementById('unidad-segundos-' + i);
+    var unidad = document.getElementById('unidad-postres-' + i);
     if (Number(unidad!.innerText) > 0) {
       unidad!.innerText = String(Number(unidad!.innerText) - 1);
       this.menu.cuentaTotal -= this.cuenta[Number(i)]
     }
-    this.cookieService.addCookie('unidad-segundos-' + i,unidad!.innerText)
+    this.cookieService.addCookie('unidad-postres-' + i,unidad!.innerText)
     this.cookieService.addCookie('total',String(this.menu.cuentaTotal))
 
     this.cookieService.update()
