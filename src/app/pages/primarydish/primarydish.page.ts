@@ -22,7 +22,6 @@ export class PrimarydishPage implements OnInit {
     console.log(Cookie.get('unidad-0'))
     console.log(this.keys)
     
-    
   }
 
   ngAfterContentChecked(){
@@ -83,6 +82,7 @@ export class PrimarydishPage implements OnInit {
     unidad!.innerText = String(Number(unidad!.innerText) + 1);
     this.menu.cuentaTotal += this.cuenta[Number(i)]
     this.addCookie('unidad-' + i,unidad!.innerText)
+    this.addCookie('total',String(this.menu.cuentaTotal))
     this.update()
     
   }
@@ -94,6 +94,8 @@ export class PrimarydishPage implements OnInit {
       this.menu.cuentaTotal -= this.cuenta[Number(i)]
     }
     this.addCookie('unidad-' + i,unidad!.innerText)
+    this.addCookie('total',String(this.menu.cuentaTotal))
+
     this.update()
   }
 
