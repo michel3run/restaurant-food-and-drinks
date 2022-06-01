@@ -14,8 +14,8 @@
           <ion-button type="submit" color="danger" expand="block" (click) ="signOff()" >Cerrar sesion</ion-button>
 
         </ion-list>
-        <ion-label>
-        Precio total a pagar : {{menu.cuentaTotal | currency:'EUR'}}
+        <ion-label >
+        Precio total a pagar : {{menu.cuentaTotal | number:'1.2-2'}}€
         </ion-label>
     
       </ion-content>
