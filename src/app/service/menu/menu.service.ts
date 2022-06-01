@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class MenuService {
-  userID:number
+  userID:number=0
   ticket= []
   platos={}
   showMenu:boolean =false;
