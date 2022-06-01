@@ -55,7 +55,12 @@ export class PrimarydishPage implements OnInit {
   add(i: string) {
     var unidad = document.getElementById('unidad-primeros-' + i);
     unidad!.innerText = String(Number(unidad!.innerText) + 1);
+    console.log("primero",this.menu.cuentaTotal)
+    console.log("medio",this.cuenta[i])
+
     this.menu.cuentaTotal += this.cuenta[i]
+    console.log("segundo",this.menu.cuentaTotal)
+
     this.cookieService.addCookie('unidad-primeros-' + i, unidad!.innerText)
     this.cookieService.addCookie('total', String(this.menu.cuentaTotal))
     this.cookieService.update()

@@ -24,6 +24,7 @@ export class PayRequestPage implements OnInit {
     this.userID = this.menu.userID
     this.cuentaTotal=this.menu.cuentaTotal
     let claves = Object.keys(this.menu.platos)
+    console.log(this.carrito.length)
     for(let i=0;i<claves.length;i++){
       let clave = claves[i]
       this.carrito.push(clave+" x "+this.menu.platos[clave])
@@ -32,7 +33,6 @@ export class PayRequestPage implements OnInit {
   pay(){
     let dateTime = new Date()
     let fecha =dateTime.toLocaleDateString().split("/").join("-")+" "+dateTime.toLocaleTimeString()
-    
     this.api.postPedidos(this.menu.userID,fecha,"pagado",this.cuentaTotal).subscribe();
 
      this.api.getProductDate(this.menu.userID,fecha).subscribe(( data=>{
