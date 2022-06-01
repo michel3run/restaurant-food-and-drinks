@@ -11,7 +11,7 @@ import { CookiesService } from 'src/app/service/cookie/cookies.service';
 export class DessertPage implements OnInit {
 
   postres = [];
-  cuenta = [];
+  cuenta = {};
   postresID = [];
 
   constructor( private api: ApiService, private menu: MenuService, private cookieService: CookiesService) {
