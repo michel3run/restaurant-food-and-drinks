@@ -11,7 +11,7 @@ import { ApiService } from '../../service/api/api.service';
 })
 export class LoginPage implements OnInit {
 
-  constructor(private router: Router, private api: ApiService, private menu: MenuService , private toastController: ToastController ) {
+  constructor(private router: Router, private api: ApiService, private menu: MenuService , private toastController: ToastController,private cookie: CookiesService ) {
   }
 
   ngOnInit() {
@@ -43,9 +43,9 @@ export class LoginPage implements OnInit {
       console.log(data)
       if (data.length == 1) {
         this.menu.showMenu = !this.menu.showMenu
-
-        this.menu.userID =data[0].id
-
+        
+        //this.menu.userID =data[0].id
+        this.cookie.addCookie("userID",`${data[0].id}`)
         this.router.navigateByUrl("primarydish")
       } else {
         this.errorToast()

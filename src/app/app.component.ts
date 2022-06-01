@@ -20,7 +20,6 @@ export class AppComponent  {
   }
   
   signOff() {
-    this.menu.userID=0
     this.cookieService.removeAll()
     this.menu.showMenu = false;
     this.router.navigateByUrl('login')
