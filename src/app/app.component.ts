@@ -22,7 +22,7 @@ export class AppComponent  {
   signOff() {
     this.cookieService.removeAll()
     this.menu.showMenu = false;
-    this.router.navigateByUrl('login')
+    this.router.navigateByUrl('login',{ replaceUrl: true })
   }
   
   
