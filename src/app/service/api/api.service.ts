@@ -28,7 +28,7 @@ export class ApiService {
 
   //Porducto por id 
   getProductID(id:string):Observable<listaProductos[]>{
-    return this.http.get<listaProductos[]>(this.url + `/productos/${id}`);
+    return this.http.get<listaProductos[]>(this.url + `/productosID/${id}`);
 
   }
     //insertar pedido 

@@ -11,18 +11,23 @@ import { Router } from '@angular/router';
 })
 export class PayRequestPage implements OnInit {
   
-  constructor(private api: ApiService, private menu: MenuService, private cookieService: CookiesService, private router: Router) { }
+  constructor(private api: ApiService, private menu: MenuService, private cookieService: CookiesService, private router: Router) { 
+ 
+  }
   userID:number
   cuentaTotal:number
   ticket;
-  ticketTraducido=[]
+  prueba=[]
   ngOnInit() {
     this.menu.showMenu=true
     this.ticket=this.menu.ticket
     this.userID = this.menu.userID
     this.cuentaTotal=this.menu.cuentaTotal
-    for(let item of this.ticket){
-      this.ticketTraducido.push(this.api.getProductID(item).subscribe()) ;
+    let claves = Object.keys(this.menu.platos)
+    for(let i=0;i<claves.length;i++){
+      let clave = claves[i]
+      console.log("aqui----------"+clave +"-------"+this.menu.platos[clave])
+      this.prueba.push(clave+" x "+this.menu.platos[clave])
     }
   }
   pay(){
