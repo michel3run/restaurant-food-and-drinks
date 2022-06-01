@@ -17,7 +17,7 @@ export class PayRequestPage implements OnInit {
   userID:number
   cuentaTotal:number
   ticket;
-  prueba=[]
+  carrito=[]
   ngOnInit() {
     this.menu.showMenu=true
     this.ticket=this.menu.ticket
@@ -26,8 +26,7 @@ export class PayRequestPage implements OnInit {
     let claves = Object.keys(this.menu.platos)
     for(let i=0;i<claves.length;i++){
       let clave = claves[i]
-      console.log("aqui----------"+clave +"-------"+this.menu.platos[clave])
-      this.prueba.push(clave+" x "+this.menu.platos[clave])
+      this.carrito.push(clave+" x "+this.menu.platos[clave])
     }
   }
   pay(){

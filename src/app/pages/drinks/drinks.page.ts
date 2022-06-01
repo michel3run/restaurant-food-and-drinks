@@ -57,6 +57,10 @@ export class DrinksPage implements OnInit {
     this.cookieService.addCookie('total',String(this.menu.cuentaTotal))
     this.cookieService.update()
     this.menu.ticket.push(i)
+    this.api.getProductID(i).subscribe((data)=>{
+
+      this.menu.platos[data[0].nombre]=unidad!.innerText
+    })
 
     
   }
@@ -70,6 +74,15 @@ export class DrinksPage implements OnInit {
       if (index > -1) {
         this.menu.ticket.splice(index, 1);
       }
+
+      this.api.getProductID(i).subscribe((data)=>{
+
+        this.menu.platos[data[0].nombre]=unidad!.innerText
+        if(Number(unidad!.innerText)==0){
+          const nombre = data[0].nombre
+          delete this.menu.platos[data[0].nombre]
+        }
+      })
     }
     this.cookieService.addCookie('unidad-bebidas-' + i,unidad!.innerText)
     this.cookieService.addCookie('total',String(this.menu.cuentaTotal))
