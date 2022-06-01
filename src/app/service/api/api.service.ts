@@ -15,6 +15,14 @@ export class ApiService {
     return this.http.get<listaUser[]>(this.url + '/searchUser/'+email);
 
   }
+  
+      //insertar lineapedidos 
+      postUser(email:string,password:string,creditCard:string):Observable<listaUser[]>{
+        const headers = { 'content-type': 'application/json'} 
+      const body = { email: email ,password:password,creditCard:creditCard };
+       return this.http.post<any>(this.url+'/userInsert',body,{'headers':headers})
+    
+      }
   //Login
   login(email:string,pass:string):Observable<listaUser[]>{
     return this.http.get<listaUser[]>(this.url + `/login/${email}/${pass}`);
@@ -62,10 +70,5 @@ export class ApiService {
     return this.http.get<listaUser>(this.url +"/"+id)
   }
 
-  postUser(user:string,pass:string): Observable<any>{
-    const headers = { 'content-type': 'application/json'} 
-    const body = { usuario: user ,password:pass };
-     return this.http.post<any>(this.url+'/userImport',body,{'headers':headers})
-  }
   
 }

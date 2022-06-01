@@ -21,7 +21,21 @@ function createRouter(db) {
       }
     );
   });
-
+    //insertar usuario
+    router.post('/userInsert', (req, res, next) => {
+      db.query(
+        'INSERT INTO usuario(email,password,creditCard)  VALUES (?,?,?)',
+        [req.body.email, req.body.password,req.body.creditCard],
+        (error) => {
+          if (error) {
+            console.error(error);
+            res.status(500).json({ status: 'error' });
+          } else {
+            res.status(200).json({ status: 'ok' });
+          }
+        }
+      );
+    });
   //Para logearse 
   router.get('/login/:email/:pass', function (req, res, next) {
     db.query(
