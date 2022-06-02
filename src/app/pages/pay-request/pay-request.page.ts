@@ -17,12 +17,21 @@ export class PayRequestPage implements OnInit {
   cuentaTotal: number
   ticket = [];
   carrito = [];
-  
-  constructor(private api: ApiService, private menu: MenuService, private cookieService: CookiesService, private router: Router, private actionSheetController: ActionSheetController, private alertController: AlertController,private modalController: ModalController,private routerOutlet: IonRouterOutlet) {
-    this.menu.showMenu = true
-    this.ticket = this.menu.ticket
-    this.userID = this.menu.userID
-    this.cuentaTotal = this.menu.cuentaTotal
+
+  constructor(
+    private api: ApiService, 
+    private menu: 
+    MenuService, 
+    private cookieService: CookiesService, 
+    private router: Router, 
+    private actionSheetController: ActionSheetController
+    , private alertController: AlertController, 
+    private modalController: ModalController, 
+    private routerOutlet: IonRouterOutlet){
+          this.menu.showMenu = true
+          this.ticket = this.menu.ticket
+          this.userID = this.menu.userID
+          this.cuentaTotal = this.menu.cuentaTotal
   }
 
   ngOnInit() {
@@ -37,7 +46,7 @@ export class PayRequestPage implements OnInit {
   async presentModal() {
     const modal = await this.modalController.create({
       component: ModalStockPage,
-     // cssClass: 'my-custom-class',
+      // cssClass: 'my-custom-class',
       swipeToClose: true,
       presentingElement: this.routerOutlet.nativeEl
     });
@@ -99,50 +108,52 @@ export class PayRequestPage implements OnInit {
           //primero vemos si hay algo en el objeto del platos que no este disponible durante la compra
           let claves = Object.keys(this.menu.platos)
           let error = false
-
-
-          for (let i = 0; i < claves.length; i++) {
-
-            this.api.getAllProductDishes(claves[i]).subscribe((data) => {
-              if (data[0].diponible == "0") {
-                error = true
-                this.menu.outStock.push(data[0].nombre)
-              }
-              if (i == claves.length - 1) {
-                if (!error) {
-/*
-                  if (this.menu.cuentaTotal == 0) {
-                    this.presentAlertNegative()
-                  } else {
-                    let dateTime = new Date()
-                    let fecha = dateTime.toLocaleDateString().split("/").join("-") + " " + dateTime.toLocaleTimeString()
-                    this.api.postPedidos(this.menu.userID, fecha, "pagado", this.cuentaTotal).subscribe();
-
-                    this.api.getProductDate(this.menu.userID, fecha).subscribe((data => {
-
-                      for (let item of this.menu.ticket) {
-                        this.api.postLineaPedidos(data[0].id, item).subscribe();
-                      }
-                      console.log(data[0].id)
-                      this.presentAlertPositive(data[0].id)
-
-
-
-                    }))
-
-
-                  }
-*/
-                } else {
-
-                  this.presentModal()
-                 // this.menu.outStock=[]
+          if (this.menu.cuentaTotal == 0) {
+            this.presentAlertNegative()
+          } else {
+            for (let i = 0; i < claves.length; i++) {
+              
+              this.api.getAllProductDishes(claves[i]).subscribe((data) => {
+                if (data[0].diponible == "0") {
+                  error = true
+                  this.menu.outStock.push(data[0].nombre)
                 }
-              }
+                if (i == claves.length - 1) {
 
-            })
+                  if (!error) {{
+                      let dateTime = new Date()
+                      let fecha = dateTime.toLocaleDateString().split("/").join("-") + " " + dateTime.toLocaleTimeString()
+                      this.api.postPedidos(this.menu.userID, fecha, "pagado", this.cuentaTotal).subscribe();
+
+                      this.api.getProductDate(this.menu.userID, fecha).subscribe((data => {
+
+                        for (let item of this.menu.ticket) {
+                          this.api.postLineaPedidos(data[0].id, item).subscribe();
+                        }
+                        this.presentAlertPositive(data[0].id)
+
+
+
+                      }))
+
+
+                    }
+
+
+                  } else {
+
+                    this.presentModal()
+                    // this.menu.outStock=[]
+                  }
+                }
+
+              })
+
+            }
+
 
           }
+
 
 
 
