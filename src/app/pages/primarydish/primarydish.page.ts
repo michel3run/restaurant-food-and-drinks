@@ -18,7 +18,8 @@ export class PrimarydishPage implements OnInit {
     this.cookieService.update()
     this.menu.showMenu = true
     this.menu.userID=Number(Cookie.get("userID"))
-
+    console.log(this.menu.cuentaTotal)
+    this.menu.cuentaTotal=this.menu.cuentaTotal
   }
 
   ngAfterContentChecked() {

@@ -33,6 +33,10 @@ export class ApiService {
   getAllProduct(tipo:string):Observable<listaProductos[]>{
     return this.http.get<listaProductos[]>(this.url + `/productos/${tipo}`);
   }
+  //Buscar producto por plato
+  getAllProductDishes(plato:string):Observable<listaProductos[]>{
+    return this.http.get<listaProductos[]>(this.url + `/productosPlato/${plato}`);
+  }
 
   //Porducto por id 
   getProductID(id:string):Observable<listaProductos[]>{

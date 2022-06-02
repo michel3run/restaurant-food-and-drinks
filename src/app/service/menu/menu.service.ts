@@ -9,6 +9,7 @@ export class MenuService {
   platos={}
   showMenu:boolean =false;
   cuentaTotal=0;
+  outStock = [];
   constructor() {
     
    }

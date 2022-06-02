@@ -3,7 +3,8 @@ import { ApiService } from 'src/app/service/api/api.service';
 import { MenuService } from 'src/app/service/menu/menu.service';
 import { CookiesService } from 'src/app/service/cookie/cookies.service';
 import { Router } from '@angular/router';
-import { ActionSheetController, AlertController } from '@ionic/angular';
+import { ActionSheetController, AlertController, IonRouterOutlet, ModalController } from '@ionic/angular';
+import { ModalStockPage } from './modalOutStock/modal-stock/modal-stock.page';
 
 
 @Component({
@@ -14,9 +15,10 @@ import { ActionSheetController, AlertController } from '@ionic/angular';
 export class PayRequestPage implements OnInit {
   userID: number
   cuentaTotal: number
-  ticket=[];
-  carrito = []
-  constructor(private api: ApiService, private menu: MenuService, private cookieService: CookiesService, private router: Router, private actionSheetController: ActionSheetController, private alertController: AlertController) {
+  ticket = [];
+  carrito = [];
+  
+  constructor(private api: ApiService, private menu: MenuService, private cookieService: CookiesService, private router: Router, private actionSheetController: ActionSheetController, private alertController: AlertController,private modalController: ModalController,private routerOutlet: IonRouterOutlet) {
     this.menu.showMenu = true
     this.ticket = this.menu.ticket
     this.userID = this.menu.userID
@@ -26,11 +28,20 @@ export class PayRequestPage implements OnInit {
   ngOnInit() {
 
     let claves = Object.keys(this.menu.platos)
-    console.log(this.carrito.length)
     for (let i = 0; i < claves.length; i++) {
       let clave = claves[i]
       this.carrito.push(clave + " x " + this.menu.platos[clave])
     }
+  }
+
+  async presentModal() {
+    const modal = await this.modalController.create({
+      component: ModalStockPage,
+     // cssClass: 'my-custom-class',
+      swipeToClose: true,
+      presentingElement: this.routerOutlet.nativeEl
+    });
+    return await modal.present();
   }
 
   async presentAlertNegative() {
@@ -55,9 +66,9 @@ export class PayRequestPage implements OnInit {
         handler: () => {
           this.cookieService.removeAll()
           this.cookieService.addCookie("userID", String(this.menu.userID))
-          this.menu.ticket=[]
-          this.carrito=[]
-          this.menu.platos={}
+          this.menu.ticket = []
+          this.carrito = []
+          this.menu.platos = {}
           this.router.navigateByUrl('primarydish', { replaceUrl: true })
         }
       }]
@@ -85,41 +96,67 @@ export class PayRequestPage implements OnInit {
         icon: 'arrow-forward-outline',
         data: 10,
         handler: () => {
-          if (this.menu.cuentaTotal == 0) {
-            this.presentAlertNegative()
-          } else {
-            let dateTime = new Date()
-            let fecha = dateTime.toLocaleDateString().split("/").join("-") + " " + dateTime.toLocaleTimeString()
-            this.api.postPedidos(this.menu.userID, fecha, "pagado", this.cuentaTotal).subscribe();
+          //primero vemos si hay algo en el objeto del platos que no este disponible durante la compra
+          let claves = Object.keys(this.menu.platos)
+          let error = false
 
-            this.api.getProductDate(this.menu.userID, fecha).subscribe((data => {
 
-              for (let item of this.menu.ticket) {
-                this.api.postLineaPedidos(data[0].id, item).subscribe();
+          for (let i = 0; i < claves.length; i++) {
+
+            this.api.getAllProductDishes(claves[i]).subscribe((data) => {
+              if (data[0].diponible == "0") {
+                error = true
+                this.menu.outStock.push(data[0].nombre)
               }
-              console.log(data[0].id)
-              this.presentAlertPositive(data[0].id)
+              if (i == claves.length - 1) {
+                if (!error) {
+/*
+                  if (this.menu.cuentaTotal == 0) {
+                    this.presentAlertNegative()
+                  } else {
+                    let dateTime = new Date()
+                    let fecha = dateTime.toLocaleDateString().split("/").join("-") + " " + dateTime.toLocaleTimeString()
+                    this.api.postPedidos(this.menu.userID, fecha, "pagado", this.cuentaTotal).subscribe();
+
+                    this.api.getProductDate(this.menu.userID, fecha).subscribe((data => {
+
+                      for (let item of this.menu.ticket) {
+                        this.api.postLineaPedidos(data[0].id, item).subscribe();
+                      }
+                      console.log(data[0].id)
+                      this.presentAlertPositive(data[0].id)
 
 
 
-            }))
+                    }))
 
+
+                  }
+*/
+                } else {
+
+                  this.presentModal()
+                 // this.menu.outStock=[]
+                }
+              }
+
+            })
 
           }
-        }
-      },
-      {
-        text: 'Cancelar',
-        icon: 'close',
-        role: 'cancel',
-        handler: () => {
+
+
+
+
+
+
         }
       }]
     });
     await actionSheet.present();
-
-    const { role, data } = await actionSheet.onDidDismiss();
-    console.log('onDidDismiss resolved with role and data', role, data);
+  }
+  removeItemFromArr(arr, item) {
+    var i = arr.indexOf(item);
+    arr.splice(i, 1);
   }
   pay() {
 

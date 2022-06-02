@@ -31,7 +31,6 @@ export class CookiesService {
   removeAll() {
     console.log('Removing all cookies');
     Cookie.deleteAll();
-    //this.update();
   }
   checkCookie() {
     console.log('Checking: ', this.checkName);

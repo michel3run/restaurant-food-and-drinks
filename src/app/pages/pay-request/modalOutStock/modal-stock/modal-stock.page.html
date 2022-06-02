@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Lo sentimos no nos quedan</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item  *ngFor="let item of menu.outStock; let i =index">
+      <ion-label (click)="order()" >
+        {{item}}
+      </ion-label>
+
+    </ion-item>
+
+  </ion-list>
+</ion-content>

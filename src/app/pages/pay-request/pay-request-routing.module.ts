@@ -7,7 +7,11 @@ const routes: Routes = [
   {
     path: '',
     component: PayRequestPage
+  },  {
+    path: 'modal-stock',
+    loadChildren: () => import('./modalOutStock/modal-stock/modal-stock.module').then( m => m.ModalStockPageModule)
   }
+
 ];
 
 @NgModule({

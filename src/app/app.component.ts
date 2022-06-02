@@ -22,6 +22,7 @@ export class AppComponent  {
   signOff() {
     this.cookieService.removeAll()
     this.menu.showMenu = false;
+    this.menu.platos={}
     this.router.navigateByUrl('login',{ replaceUrl: true })
   }
   
