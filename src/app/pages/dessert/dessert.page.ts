@@ -17,6 +17,7 @@ export class DessertPage implements OnInit {
   constructor( private api: ApiService, private menu: MenuService, private cookieService: CookiesService) {
     this.cookieService.update()
     this.menu.showMenu = true
+    this.menu.userID=Number(Cookie.get("userID"))
 
   }
 

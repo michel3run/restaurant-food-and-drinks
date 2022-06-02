@@ -15,6 +15,8 @@ export class SecondarydishPage implements OnInit {
   cuenta = {};
   constructor(private api: ApiService, private menu: MenuService, private cookieService: CookiesService) {
     this.cookieService.update()
+    this.menu.showMenu = true
+    this.menu.userID=Number(Cookie.get("userID"))
   }
 
   ngAfterContentChecked() {
@@ -31,7 +33,6 @@ export class SecondarydishPage implements OnInit {
     this.menu.cuentaTotal = Number(Cookie.get('total'))
   }
   ngOnInit() {
-    this.menu.showMenu = true
     this.api.getAllProduct("segundo").subscribe((data) => {
       for (let item of data) {
         this.segundos.push(item.nombre + " " + item.precio + "€")

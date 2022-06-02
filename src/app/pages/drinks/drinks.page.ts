@@ -15,6 +15,8 @@ export class DrinksPage implements OnInit {
   bebidasID = [];
   constructor( private router: Router,private api: ApiService, private menu: MenuService, private cookieService: CookiesService) {
     this.cookieService.update()
+    this.menu.showMenu = true
+    this.menu.userID=Number(Cookie.get("userID"))
   }
 
   ngAfterContentChecked(){
@@ -31,7 +33,6 @@ export class DrinksPage implements OnInit {
     this.menu.cuentaTotal = Number(Cookie.get('total'))
   }
   ngOnInit() {
-    this.menu.showMenu = true
     this.api.getAllProduct("bebida").subscribe((data) => {
       for (let item of data) {
         this.bebidas.push(item.nombre + " " + item.precio + "€")
