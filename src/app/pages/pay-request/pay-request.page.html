@@ -7,15 +7,21 @@
 </ion-header>
 
 <ion-content>
+  
   <ion-list>
     <ion-item *ngFor="let item of carrito; let i =index ">
-      <ion-label>
+      <ion-label >
         {{item}}
       </ion-label>
-
+      <ion-item>
+        <ion-label>Notes</ion-label>
+        <ion-textarea id="comentario-{{i}}" rows="6" cols="70" placeholder="Comentario..."></ion-textarea>
+      </ion-item>
     </ion-item>
+    
   </ion-list>
   <ion-label>Precio total a pagar {{menu.cuentaTotal | number:'1.2-2'}}€</ion-label>
   <ion-button type="submit" color="primary" expand="block" (click) ="pay()" >Pedir y pagar</ion-button>
 
 </ion-content>
+

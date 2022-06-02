@@ -40,3 +40,8 @@ ion-slide {
     position: absolute !important;
     top: 0px !important;
 }
+.img-container {
+    display: flex;
+    justify-content: center;
+    // align-items: center; this only if you want to vertical align it to the center too
+ }

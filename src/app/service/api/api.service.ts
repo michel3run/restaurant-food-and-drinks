@@ -44,7 +44,7 @@ export class ApiService {
 
   }
     //insertar pedido 
-    postPedidos(idUser:number,fecha:string, estado:string,total:number):Observable<listaPedidos[]>{
+    postPedidos(idUser:number,fecha:string, estado:string,total:number ):Observable<listaPedidos[]>{
       const headers = { 'content-type': 'application/json'} 
     const body = { idUser: idUser ,fecha:fecha,estado:estado,total:total };
      return this.http.post<any>(this.url+'/insertPedidos',body,{'headers':headers})
@@ -59,9 +59,9 @@ export class ApiService {
 
   }
     //insertar lineapedidos 
-    postLineaPedidos(idPedidos:number,idProductos:number):Observable<listaPedidos[]>{
+    postLineaPedidos(idPedidos:number,idProductos:number ,comentarios : string):Observable<listaPedidos[]>{
       const headers = { 'content-type': 'application/json'} 
-    const body = { idPedidos: idPedidos ,idProductos:idProductos };
+    const body = { idPedidos: idPedidos ,idProductos:idProductos ,comentarios:comentarios };
      return this.http.post<any>(this.url+'/lineaPedidos',body,{'headers':headers})
   
     }

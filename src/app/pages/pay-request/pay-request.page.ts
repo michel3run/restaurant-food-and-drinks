@@ -19,19 +19,19 @@ export class PayRequestPage implements OnInit {
   carrito = [];
 
   constructor(
-    private api: ApiService, 
-    private menu: 
-    MenuService, 
-    private cookieService: CookiesService, 
-    private router: Router, 
+    private api: ApiService,
+    private menu:
+      MenuService,
+    private cookieService: CookiesService,
+    private router: Router,
     private actionSheetController: ActionSheetController
-    , private alertController: AlertController, 
-    private modalController: ModalController, 
-    private routerOutlet: IonRouterOutlet){
-          this.menu.showMenu = true
-          this.ticket = this.menu.ticket
-          this.userID = this.menu.userID
-          this.cuentaTotal = this.menu.cuentaTotal
+    , private alertController: AlertController,
+    private modalController: ModalController,
+    private routerOutlet: IonRouterOutlet) {
+    this.menu.showMenu = true
+    this.ticket = this.menu.ticket
+    this.userID = this.menu.userID
+    this.cuentaTotal = this.menu.cuentaTotal
   }
 
   ngOnInit() {
@@ -112,7 +112,7 @@ export class PayRequestPage implements OnInit {
             this.presentAlertNegative()
           } else {
             for (let i = 0; i < claves.length; i++) {
-              
+
               this.api.getAllProductDishes(claves[i]).subscribe((data) => {
                 if (data[0].diponible == "0") {
                   error = true
@@ -120,21 +120,28 @@ export class PayRequestPage implements OnInit {
                 }
                 if (i == claves.length - 1) {
 
-                  if (!error) {{
+                  if (!error) {
+                    {
+
                       let dateTime = new Date()
                       let fecha = dateTime.toLocaleDateString().split("/").join("-") + " " + dateTime.toLocaleTimeString()
                       this.api.postPedidos(this.menu.userID, fecha, "pagado", this.cuentaTotal).subscribe();
 
                       this.api.getProductDate(this.menu.userID, fecha).subscribe((data => {
 
+                        let cont = 0
                         for (let item of this.menu.ticket) {
-                          this.api.postLineaPedidos(data[0].id, item).subscribe();
+                          const comentario = (document.getElementById("comentario-" + cont) as HTMLInputElement).value;
+                           this.api.postLineaPedidos(data[0].id, item,comentario).subscribe();
+                          
+                          cont++
                         }
                         this.presentAlertPositive(data[0].id)
 
 
 
                       }))
+
 
 
                     }
