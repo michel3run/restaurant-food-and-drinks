@@ -6,16 +6,21 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <ion-item  *ngFor="let item of segundos; let i =index">
+
+  <ion-list >
+    <ion-item *ngFor="let item of segundos; let i =index ">
       <ion-label >
         {{item}}
       </ion-label>
-      <ion-label color="dark" position="stacked">Unidad</ion-label>
-      <ion-input id="unidad-segundos-{{segundosID[i]}}" min="0" value="" readonly ></ion-input>
-      <ion-button color="#000000" id="boton-add-{{segundosID[i]}}"  (click)="add(segundosID[i])">Añadir</ion-button>
-      <ion-button color="tertiary" id="boton-delete-{{segundosID[i]}}"  (click)="delete(segundosID[i])">Quitar</ion-button>
-
+      <ion-label color="dark" position="stacked">Unidades</ion-label>
+      <ion-input col-4 id="unidad-segundos-{{segundosID[i]}}" min="0" value="" readonly></ion-input>
+      
+      <td>
+        <ion-button  color="#000000" id="boton-add-{{segundosID[i]}}" (click)="add(segundosID[i])">Añadir
+        </ion-button>
+        <ion-button  color="tertiary" id="boton-delete-{{segundosID[i]}}" (click)="delete(segundosID[i])">Quitar
+        </ion-button>
+      </td>
     </ion-item>
 
   </ion-list>
