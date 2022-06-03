@@ -3,9 +3,9 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>Register</ion-title>
   </ion-toolbar>
 </ion-header>
+<!--
 <ion-content>
   <form>
     <ion-item lines="full">
@@ -32,3 +32,78 @@
     </ion-row>
   </form>
 </ion-content>
+-->
+
+<ion-content>
+
+  <ion-grid class="grid1">
+  
+      <ion-row class="row1">
+          <ion-col>
+  
+          </ion-col>
+      </ion-row>
+  
+      <ion-row class="row2">
+          <ion-col>
+  
+          </ion-col>
+      </ion-row>
+  
+  </ion-grid>
+  
+  <ion-slide>
+      <div class="contaier-login">
+          <ion-grid>
+              <ion-row>
+                  <ion-col>
+                      <h1>Registro</h1>
+                  </ion-col>
+              </ion-row>
+              <ion-row>
+                  <ion-col>
+                      <ion-list>
+  
+                          <ion-item>
+                              <ion-icon name="person" class="icon-login"></ion-icon>
+                              <ion-input id="email" name="user" type="text" required placeholder="Usuario"></ion-input>
+                          </ion-item>
+                          <br />
+                          <ion-item>
+                              <ion-icon name="lock" class="icon-login"></ion-icon>
+                              <ion-input id="password" name="password" type="password" required placeholder="Contraseña"></ion-input>
+                          </ion-item>
+
+                          <br />
+                          <ion-item>
+                              <ion-icon name="lock" class="icon-login"></ion-icon>
+                              <ion-input id="repeatPassword" name="repeatPassword" type="password" required placeholder="Repita contraseña"></ion-input>
+                          </ion-item>
+
+                          <br />
+                          <ion-item>
+                              <ion-icon name="card-outline" class="icon-login"></ion-icon>
+                              <ion-input  id="creditCard" name="password"  required placeholder="Tarjeta de credito" (keypress)="numberOnlyValidation($event)" maxlength="16"></ion-input>
+                          </ion-item>
+  
+                      </ion-list>
+                  </ion-col>
+              </ion-row>
+              <ion-row>
+                  <ion-col>
+                      <ion-button type="submit" fill="solid" expand="full" (click)="register()">
+                          Entrar
+                      </ion-button>
+                  </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                    <ion-button color="medium" type="submit" fill="solid" expand="full" (click)="goTologin()">
+                        Ya tienes cuenta
+                    </ion-button>
+                </ion-col>
+            </ion-row>
+
+          </ion-grid>
+      </div>
+  </ion-slide>
