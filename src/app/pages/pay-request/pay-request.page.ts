@@ -39,7 +39,7 @@ export class PayRequestPage implements OnInit {
     let claves = Object.keys(this.menu.platos)
     for (let i = 0; i < claves.length; i++) {
       let clave = claves[i]
-      this.carrito.push(clave + " x " + this.menu.platos[clave])
+      this.carrito.push(clave + " x " + this.menu.platos[clave]+" ")
     }
   }
 

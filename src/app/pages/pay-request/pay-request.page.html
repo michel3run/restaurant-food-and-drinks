@@ -10,13 +10,10 @@
   
   <ion-list>
     <ion-item *ngFor="let item of carrito; let i =index ">
-      <ion-label >
-        {{item}}
+      <ion-label class="input" >
+        {{item}} 
       </ion-label>
-      <ion-item>
-        <ion-label>Notes</ion-label>
-        <ion-textarea id="comentario-{{i}}" rows="6" cols="70" placeholder="Comentario..."></ion-textarea>
-      </ion-item>
+        <ion-textarea class="input" id="comentario-{{i}}" rows="6" cols="50" maxlength="100" placeholder="Comentarios..."></ion-textarea>
     </ion-item>
     
   </ion-list>
