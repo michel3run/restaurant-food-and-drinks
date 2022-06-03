@@ -3,5 +3,5 @@ export interface listaProductos{
     nombre:string;
     precio:number;
     tipo:string;
-    diponible:string;
+    disponible:string;
 }

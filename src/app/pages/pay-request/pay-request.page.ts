@@ -114,14 +114,14 @@ export class PayRequestPage implements OnInit {
             for (let i = 0; i < claves.length; i++) {
 
               this.api.getAllProductDishes(claves[i]).subscribe((data) => {
-                if (data[0].diponible == "0") {
+                if (data[0].disponible == "0") {
                   error = true
                   this.menu.outStock.push(data[0].nombre)
                 }
                 if (i == claves.length - 1) {
 
                   if (!error) {
-                    {
+                    
 
                       let dateTime = new Date()
                       let fecha = dateTime.toLocaleDateString().split("/").join("-") + " " + dateTime.toLocaleTimeString()
@@ -144,13 +144,11 @@ export class PayRequestPage implements OnInit {
 
 
 
-                    }
-
+                    
 
                   } else {
-
+                    console.log(this.menu.outStock)
                     this.presentModal()
-                    // this.menu.outStock=[]
                   }
                 }
 
