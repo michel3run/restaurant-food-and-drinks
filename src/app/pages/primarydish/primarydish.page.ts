@@ -14,6 +14,7 @@ export class PrimarydishPage implements OnInit {
   primeros = [];
   cuenta = {};
   primerosID = [];
+  ingredientes=[];
   constructor(private api: ApiService, private menu: MenuService, private cookieService: CookiesService, private router: Router) {
     this.cookieService.update()
     this.menu.showMenu = true
@@ -44,7 +45,7 @@ export class PrimarydishPage implements OnInit {
         this.primeros.push(item.nombre + " " + item.precio + "€")
         this.cuenta[item.id] = item.precio
         this.primerosID.push(Number(item.id));
-
+        this.ingredientes.push(item.ingredientes)
       }
 
 

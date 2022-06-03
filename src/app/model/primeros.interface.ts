@@ -3,5 +3,6 @@ export interface listaProductos{
     nombre:string;
     precio:number;
     tipo:string;
+    ingredientes:string;
     disponible:string;
 }
