@@ -3,7 +3,7 @@
     <ion-menu contentId="main-content" type="overlay">
       <ion-content *ngIf="menu.showMenu">
         <ion-list id="inbox-list">
-          <ion-list-header>Restaurant food and drinks <ion-img width="80" height="80" src="../../resources/icon.png"></ion-img></ion-list-header>
+          <ion-list-header>Restaurant food and drinks </ion-list-header>
 
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
             <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false"
