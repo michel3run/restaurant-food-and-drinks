@@ -9,9 +9,7 @@
 
   <ion-list >
     <ion-item *ngFor="let item of bebidas; let i =index ">
-      <ion-label >
-        {{item}}
-      </ion-label>
+       <p> {{item}}</p>
       <ion-label color="dark" position="stacked">Unidades</ion-label>
       <ion-input col-4 id="unidad-bebidas-{{bebidasID[i]}}" min="0" value="" readonly></ion-input>
       

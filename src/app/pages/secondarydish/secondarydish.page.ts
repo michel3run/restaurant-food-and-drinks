@@ -13,6 +13,8 @@ export class SecondarydishPage implements OnInit {
 
   segundos = [];
   cuenta = {};
+  ingredientes=[];
+
   constructor(private api: ApiService, private menu: MenuService, private cookieService: CookiesService) {
     this.cookieService.update()
     this.menu.showMenu = true
@@ -38,6 +40,8 @@ export class SecondarydishPage implements OnInit {
         this.segundos.push(item.nombre + " " + item.precio + "€")
         this.cuenta[item.id] = item.precio
         this.segundosID.push(Number(item.id))
+        this.ingredientes.push(item.ingredientes)
+
       }
 
 

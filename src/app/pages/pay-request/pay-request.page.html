@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Pagar y Pedir {{menu.userID}}</ion-title>
+    <ion-title>Pagar y Pedir</ion-title>
 
   </ion-toolbar>
 
@@ -10,9 +10,9 @@
   
   <ion-list>
     <ion-item *ngFor="let item of carrito; let i =index ">
-      <ion-label class="input" >
+      <p class="input">
         {{item}} 
-      </ion-label>
+      </p>
         <ion-textarea class="input" id="comentario-{{i}}" rows="6" cols="50" maxlength="100" placeholder="Comentarios..."></ion-textarea>
     </ion-item>
     

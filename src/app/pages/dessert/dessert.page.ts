@@ -13,6 +13,7 @@ export class DessertPage implements OnInit {
   postres = [];
   cuenta = {};
   postresID = [];
+  ingredientes=[];
 
   constructor( private api: ApiService, private menu: MenuService, private cookieService: CookiesService) {
     this.cookieService.update()
@@ -41,6 +42,8 @@ export class DessertPage implements OnInit {
         this.postres.push(item.nombre + " " + item.precio + "€")
         this.cuenta[item.id] = item.precio
         this.postresID.push(Number(item.id));
+        this.ingredientes.push(item.ingredientes)
+
 
       }
 
