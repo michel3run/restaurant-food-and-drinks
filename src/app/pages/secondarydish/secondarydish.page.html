@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Segundo plato</ion-title>
+    <ion-title>Primer Plato</ion-title>
   </ion-toolbar>
 
 </ion-header>
@@ -10,7 +10,7 @@
   <ion-list >
     <ion-item *ngFor="let item of segundos; let i =index ">
       <ion-label >
-        {{item}}
+       <p> {{item}}</p>
       </ion-label>
       <ion-label color="dark" position="stacked">Unidades</ion-label>
       <ion-input col-4 id="unidad-segundos-{{segundosID[i]}}" min="0" value="" readonly></ion-input>
