@@ -10,6 +10,7 @@ import { ApiService } from 'src/app/service/api/api.service';
 export class RegisterPage implements OnInit {
 
 
+
   constructor(private toastController: ToastController, private api: ApiService, private router: Router) { }
   async passToast() {
     const toast = await this.toastController.create({
@@ -40,8 +41,12 @@ export class RegisterPage implements OnInit {
     });
     toast.present();
   }
+  
+
 
   ngOnInit() {
+
+
   }
   numberOnlyValidation(event: any) {
     const pattern = /[0-9.,]/;
@@ -58,34 +63,10 @@ export class RegisterPage implements OnInit {
     const password = (document.getElementById("password") as HTMLInputElement).value;
     const repeatPassword = (document.getElementById("repeatPassword") as HTMLInputElement).value;
     const creditCard = (document.getElementById("creditCard") as HTMLInputElement).value;
-    /* 
-     if (password != repeatPassword) {    
-       this.passToast()
-       error = true;
-     } else if(creditCard.length<16) {
-         this.creditCardToast()
-         error= true;
-     }
- 
-     this.api.searchUser(email).subscribe((data) => {
-       if(data.length >0 ){
-         this.emailToast()
-         error=true
-       }else{
-         if (!error) {
-           // enviar a la bbdd
-          // this.api.postUser(email,password,creditCard).subscribe()
-           this.router.navigateByUrl('login')
-           
-         }
-       }
-      
-       
-     })
-   
- */
-    if (email == "" || repeatPassword == "" || repeatPassword == "" || creditCard == "") {
+
+    if (email == "" || password == "" || repeatPassword == "" || creditCard == "") {
       this.initialToast()
+  
     } else {
       if (password != repeatPassword) {
         this.passToast()
