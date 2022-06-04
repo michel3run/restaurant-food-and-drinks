@@ -21,21 +21,7 @@ function createRouter(db) {
       }
     );
   });
-    //insertar usuario
-    router.post('/userInsert', (req, res, next) => {
-      db.query(
-        'INSERT INTO usuario(email,password,creditCard)  VALUES (?,?,?)',
-        [req.body.email, req.body.password,req.body.creditCard],
-        (error) => {
-          if (error) {
-            console.error(error);
-            res.status(500).json({ status: 'error' });
-          } else {
-            res.status(200).json({ status: 'ok' });
-          }
-        }
-      );
-    });
+
   //Para logearse 
   router.get('/login/:email/:pass', function (req, res, next) {
     db.query(
@@ -51,11 +37,45 @@ function createRouter(db) {
       }
     );
   });
+  //Listar todos los productos  por tipo
+  router.get('/productosAll', function (req, res, next) {
+    db.query(
+      'SELECT * FROM productos',
+      [req.params.tipo],
+
+      (error, results) => {
+        if (error) {
+          console.log(error);
+          res.status(500).json({ status: 'error' });
+        } else {
+          res.status(200).json(results);
+        }
+      }
+    );
+  });
+
+  
+
+  router.get('/productosPlato/:plato', function (req, res, next) {
+    db.query(
+      'SELECT * FROM productos where nombre=?',
+      [req.params.plato],
+
+      (error, results) => {
+        if (error) {
+          console.log(error);
+          res.status(500).json({ status: 'error' });
+        } else {
+          res.status(200).json(results);
+        }
+      }
+    );
+  });
 
   //Listar todos los productos segun su tipo
   router.get('/productos/:tipo', function (req, res, next) {
     db.query(
-      'SELECT * FROM productos where tipo=?',
+      'SELECT * FROM productos where tipo=? ',
       [req.params.tipo],
 
       (error, results) => {
@@ -85,11 +105,28 @@ function createRouter(db) {
     );
   });
 
+
+    //insertar pedido
+    router.post('/userInsert', (req, res, next) => {
+      db.query(
+        'INSERT INTO usuario(email,password,creditCard)  VALUES (?,?,?)',
+        [req.body.email, req.body.password, req.body.creditCard],
+        (error) => {
+          if (error) {
+            console.error(error);
+            res.status(500).json({ status: 'error' });
+          } else {
+            res.status(200).json({ status: 'ok' });
+          }
+        }
+      );
+    });
+
   //insertar pedido
   router.post('/insertPedidos', (req, res, next) => {
     db.query(
       'INSERT INTO pedidos(idUser,fecha,estado,total)  VALUES (?,?,?,?)',
-      [req.body.idUser, req.body.fecha,req.body.estado,req.body.total],
+      [req.body.idUser, req.body.fecha, req.body.estado, req.body.total],
       (error) => {
         if (error) {
           console.error(error);
@@ -101,11 +138,88 @@ function createRouter(db) {
     );
   });
 
-    //Buscar pedido por idUser y fecha
-    router.get('/pedidos/:idUser/:fecha', function (req, res, next) {
+  //Buscar pedido por idUser y fecha
+  router.get('/pedidos/:idUser/:fecha', function (req, res, next) {
+    db.query(
+      'SELECT * FROM pedidos where idUser=? and fecha=?',
+      [req.params.idUser, req.params.fecha],
+      (error, results) => {
+        if (error) {
+          console.log(error);
+          res.status(500).json({ status: 'error' });
+        } else {
+          res.status(200).json(results);
+        }
+      }
+    );
+  });
+  //Buscar pedido pagado
+  router.get('/pedidos/:estado', function (req, res, next) {
+    db.query(
+      'SELECT * FROM pedidos where estado=?	',
+      [req.params.estado],
+      (error, results) => {
+        if (error) {
+          console.log(error);
+          res.status(500).json({ status: 'error' });
+        } else {
+          res.status(200).json(results);
+        }
+      }
+    );
+  });
+
+  //insertar lineapedidos
+  router.post('/lineaPedidos', (req, res, next) => {
+    db.query(
+      'INSERT INTO lineapedidos(idPedidos,idProductos,comentarios)  VALUES (?,?,?)',
+      [req.body.idPedidos, req.body.idProductos,req.body.comentarios],
+      (error) => {
+        if (error) {
+          console.error(error);
+          res.status(500).json({ status: 'error' });
+        } else {
+          res.status(200).json({ status: 'ok' });
+        }
+      }
+    );
+  });
+  //change disponible produc
+  router.post('/changeProduct', (req, res, next) => {
+    db.query(
+      'UPDATE productos SET disponible = ? WHERE id=?',
+      [req.body.disponible, req.body.id],
+      (error) => {
+        if (error) {
+          console.error(error);
+          res.status(500).json({ status: 'error' });
+        } else {
+          res.status(200).json({ status: 'ok' });
+        }
+      }
+    );
+  });
+
+    //Buscar el ticket del pedido en linea pedido
+    router.get('/lineapedido/:idPedido', function (req, res, next) {
       db.query(
-        'SELECT * FROM pedidos where idUser=? and fecha=?',
-        [req.params.idUser, req.params.fecha],
+        'SELECT * FROM productos JOIN lineapedidos ON productos.id=lineapedidos.idProductos WHERE lineapedidos.idPedidos=?	',
+        [req.params.idPedido],
+        (error, results) => {
+          if (error) {
+            console.log(error);
+            res.status(500).json({ status: 'error' });
+          } else {
+            res.status(200).json(results);
+          }
+        }
+      );
+    });
+//Buscar el cliente del ticket
+    router.get('/usuarioPedido/:idPedido', function (req, res, next) {
+      db.query(
+        'SELECT * FROM usuario JOIN pedidos ON usuario.id=pedidos.idUser WHERE pedidos.id=?	',
+        [req.params.idPedido],
         (error, results) => {
           if (error) {
             console.log(error);
@@ -117,11 +231,11 @@ function createRouter(db) {
       );
     });
 
-    //insertar lineapedidos
-  router.post('/lineaPedidos', (req, res, next) => {
+      //change entregado pedido
+  router.post('/changeEntregado', (req, res, next) => {
     db.query(
-      'INSERT INTO lineapedidos(idPedidos,idProductos)  VALUES (?,?)',
-      [req.body.idPedidos, req.body.idProductos],
+      'UPDATE pedidos SET estado = ? WHERE id=?',
+      [req.body.estado, req.body.id],
       (error) => {
         if (error) {
           console.error(error);
