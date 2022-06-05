@@ -11,8 +11,9 @@
     <ion-item *ngFor="let item of bebidas; let i =index ">
        <p> {{item}}</p>
       <ion-label color="dark" position="stacked">Unidades</ion-label>
+      <br>
       <ion-input col-4 id="unidad-bebidas-{{bebidasID[i]}}" min="0" value="" readonly></ion-input>
-      
+      <br>
       <td>
         <ion-button  color="#000000" id="boton-add-{{bebidasID[i]}}" (click)="add(bebidasID[i])">Añadir
         </ion-button>
