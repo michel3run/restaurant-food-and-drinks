@@ -8,7 +8,7 @@ import { listaPedidos } from 'src/app/model/pedidos.interface';
   providedIn: 'root'
 })
 export class ApiService {
-  url = 'http://192.168.1.147:8080'
+  url = 'http://localhost:8080'
   constructor(private http: HttpClient) { }
   //Buscar email para no registrarse
   searchUser(email: string): Observable<listaUser[]> {
