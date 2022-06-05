@@ -106,37 +106,37 @@ export class PayRequestPage implements OnInit {
         data: 10,
         handler: () => {
           //primero vemos si hay algo en el objeto del platos que no este disponible durante la compra
+
           let claves = Object.keys(this.menu.platos)
-          let error = false
           if (this.menu.cuentaTotal == 0) {
             this.presentAlertNegative()
           } else {
             for (let i = 0; i < claves.length; i++) {
 
               this.api.getAllProductDishes(claves[i]).subscribe((data) => {
+
                 if (data[0].disponible == "0") {
-                  error = true
                   this.menu.outStock.push(data[0].nombre)
                 }
                 if (i == claves.length - 1) {
 
-                  if (!error) {
+                  if (this.menu.outStock.length == 0) {
                     
 
                       let dateTime = new Date()
                       let fecha = dateTime.toLocaleDateString().split("/").join("-") + " " + dateTime.toLocaleTimeString()
-                      this.api.postPedidos(this.menu.userID, fecha, "pagado", this.cuentaTotal).subscribe();
+                      const comentario = (document.getElementById("comentario") as HTMLTextAreaElement).value;
+                      this.api.postPedidos(this.menu.userID, fecha, "pagado", comentario, this.cuentaTotal).subscribe();
 
-                      this.api.getProductDate(this.menu.userID, fecha).subscribe((data => {
-
-                        let cont = 0
+                      this.api.getProductDate(this.menu.userID, fecha).subscribe((data2 => {
                         for (let item of this.menu.ticket) {
-                          const comentario = (document.getElementById("comentario-" + cont) as HTMLInputElement).value;
-                           this.api.postLineaPedidos(data[0].id, item,comentario).subscribe();
+                            
+                            this.api.postLineaPedidos(data2[0].id, item).subscribe();
+
+                           
                           
-                          cont++
                         }
-                        this.presentAlertPositive(data[0].id)
+                        this.presentAlertPositive(data2[0].id)
 
 
 

@@ -125,8 +125,8 @@ function createRouter(db) {
   //insertar pedido
   router.post('/insertPedidos', (req, res, next) => {
     db.query(
-      'INSERT INTO pedidos(idUser,fecha,estado,total)  VALUES (?,?,?,?)',
-      [req.body.idUser, req.body.fecha, req.body.estado, req.body.total],
+      'INSERT INTO pedidos(idUser,fecha,estado,comentarios,total)  VALUES (?,?,?,?,?)',
+      [req.body.idUser, req.body.fecha, req.body.estado ,req.body.comentarios, req.body.total],
       (error) => {
         if (error) {
           console.error(error);
@@ -168,12 +168,27 @@ function createRouter(db) {
       }
     );
   });
+  //Coger comentario
+  router.get('/pedidosComentario/:idPedido', function (req, res, next) {
+    db.query(
+      'SELECT * FROM pedidos where id=?	',
+      [req.params.idPedido],
+      (error, results) => {
+        if (error) {
+          console.log(error);
+          res.status(500).json({ status: 'error' });
+        } else {
+          res.status(200).json(results);
+        }
+      }
+    );
+  });
 
   //insertar lineapedidos
   router.post('/lineaPedidos', (req, res, next) => {
     db.query(
-      'INSERT INTO lineapedidos(idPedidos,idProductos,comentarios)  VALUES (?,?,?)',
-      [req.body.idPedidos, req.body.idProductos,req.body.comentarios],
+      'INSERT INTO lineapedidos(idPedidos,idProductos)  VALUES (?,?)',
+      [req.body.idPedidos, req.body.idProductos],
       (error) => {
         if (error) {
           console.error(error);
