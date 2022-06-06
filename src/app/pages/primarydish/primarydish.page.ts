@@ -11,19 +11,28 @@ import { Router } from '@angular/router';
   styleUrls: ['./primarydish.page.scss'],
 })
 export class PrimarydishPage implements OnInit {
+  //Array para mostarar al usuario
   primeros = [];
+  //Para saber que platos y cuantos ha pedido
   cuenta = {};
+  //cogemos por orden los id de los pedido para las cookies
   primerosID = [];
-  ingredientes=[];
+  // cogemos los ingredientes para mostrarlos
+  ingredientes = [];
   constructor(private api: ApiService, private menu: MenuService, private cookieService: CookiesService, private router: Router) {
+    //actualizamos las cookies
     this.cookieService.update()
+    // mostraamos el menu lateral
     this.menu.showMenu = true
-    this.menu.userID=Number(Cookie.get("userID"))
+    //cogemos el id con el que nos hemos logeado
+    this.menu.userID = Number(Cookie.get("userID"))
     console.log(this.menu.cuentaTotal)
-    this.menu.cuentaTotal=this.menu.cuentaTotal
+    //igualamos la cuenta total
+    this.menu.cuentaTotal = this.menu.cuentaTotal
   }
-
+  //para cuando vuelvan inserte los valores si tiene cookies
   ngAfterContentChecked() {
+    //recorremos las cookies e importamos en un try catcht para no estropear la web
     for (let item of this.cookieService.keys) {
       console.log(item)
       var unidad = document.getElementById(item);
@@ -37,6 +46,7 @@ export class PrimarydishPage implements OnInit {
     this.menu.cuentaTotal = Number(Cookie.get('total'))
 
   }
+  // al iniciar pintamos y cogemos lo necesario de nuestros atributos
   ngOnInit() {
 
     this.api.getAllProduct("primero").subscribe((data) => {
@@ -55,29 +65,29 @@ export class PrimarydishPage implements OnInit {
 
 
 
-
+  //Funcion añadir sumamos 1 a unidades , actualizamos las cookies y el total
 
   add(i: string) {
     var unidad = document.getElementById('unidad-primeros-' + i);
     unidad!.innerText = String(Number(unidad!.innerText) + 1);
-    console.log("primero",this.menu.cuentaTotal)
-    console.log("medio",this.cuenta[i])
+    console.log("primero", this.menu.cuentaTotal)
+    console.log("medio", this.cuenta[i])
 
     this.menu.cuentaTotal += this.cuenta[i]
-    console.log("segundo",this.menu.cuentaTotal)
+    console.log("segundo", this.menu.cuentaTotal)
 
     this.cookieService.addCookie('unidad-primeros-' + i, unidad!.innerText)
     this.cookieService.addCookie('total', String(this.menu.cuentaTotal))
     this.cookieService.update()
     this.menu.ticket.push(i)
 
-    this.api.getProductID(i).subscribe((data)=>{
+    this.api.getProductID(i).subscribe((data) => {
 
-      this.menu.platos[data[0].nombre]=unidad!.innerText
+      this.menu.platos[data[0].nombre] = unidad!.innerText
     })
 
   }
-
+  //Funcion borrar restamos 1 a unidades hasta llegar a 0 , actualizamos las cookies y el total
   delete(i: string) {
     var unidad = document.getElementById('unidad-primeros-' + i);
     if (Number(unidad!.innerText) > 0) {
@@ -87,10 +97,10 @@ export class PrimarydishPage implements OnInit {
       if (index > -1) {
         this.menu.ticket.splice(index, 1);
       }
-      this.api.getProductID(i).subscribe((data)=>{
+      this.api.getProductID(i).subscribe((data) => {
 
-        this.menu.platos[data[0].nombre]=unidad!.innerText
-        if(Number(unidad!.innerText)==0){
+        this.menu.platos[data[0].nombre] = unidad!.innerText
+        if (Number(unidad!.innerText) == 0) {
           const nombre = data[0].nombre
           delete this.menu.platos[data[0].nombre]
         }

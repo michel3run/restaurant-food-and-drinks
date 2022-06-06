@@ -20,6 +20,7 @@ export class LoginPage implements OnInit {
   ngOnInit() {
 
   }
+  //Toast error de que has fallado el usuario o contraseña
   async errorToast() {
     const toast = await this.toastController.create({
       message: 'Error el usuario o contraseña son incorrectos.',
@@ -27,41 +28,35 @@ export class LoginPage implements OnInit {
     });
     toast.present();
   }
-
+//cuando haces click al login
   login() {
-
-    /* this.api.getAllUser().subscribe(data=>{
-       console.log(data)
-     })*/
-    /*
-      this.api.getUser("michel@gmail.com").subscribe((data)=>{
-        console.log(data)
-      })*/
-
-    //this.api.postUser("login", "contraseña").subscribe()
+    //Cogo lo que hay en los input del html
     const email = (document.getElementById("email") as HTMLInputElement).value;
     let password = (document.getElementById("password") as HTMLInputElement).value;
+    //pasamos la contraseña a md5
     password = this.getMD5(password)
-
+    //hacemos una consulta en la base de dato con el usuario y contraseña para ver si existe
    this.api.login(email, password).subscribe((data => {
       console.log(data)
+      // Si la longitud == 1 es que ha devuelto algo
       if (data.length == 1) {
         this.menu.showMenu = !this.menu.showMenu
-        
-        //this.menu.userID =data[0].id
-        this.cookie.addCookie("userID",`${data[0].id}`)
+                this.cookie.addCookie("userID",`${data[0].id}`)
         this.router.navigateByUrl("primarydish")
       } else {
+        // si no llamamos al error
         this.errorToast()
       }
     }))
     
 
   }
+  //Funcion para pasar una string a MD5
   getMD5(value: string): string {
     const hash =  new JsHashes.MD5;
     return hash.hex(value);
  }
+ //Función cuando le damos al boton register
   register(){
     this.router.navigateByUrl("register")
   }

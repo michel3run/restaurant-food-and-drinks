@@ -9,19 +9,35 @@ import { CookiesService } from 'src/app/service/cookie/cookies.service';
   styleUrls: ['./secondarydish.page.scss'],
 })
 export class SecondarydishPage implements OnInit {
+  //cogemos por orden los id de los pedido para las cookies
+
   segundosID = [];
+    //Array para mostarar al usuario
 
   segundos = [];
+    //Para saber que platos y cuantos ha pedido
+
   cuenta = {};
+    // cogemos los ingredientes para mostrarlos
+
   ingredientes=[];
 
   constructor(private api: ApiService, private menu: MenuService, private cookieService: CookiesService) {
+        //actualizamos las cookies
+
     this.cookieService.update()
+        // mostraamos el menu lateral
+
     this.menu.showMenu = true
+        //cogemos el id con el que nos hemos logeado
+
     this.menu.userID=Number(Cookie.get("userID"))
   }
+  //para cuando vuelvan inserte los valores si tiene cookies
 
   ngAfterContentChecked() {
+        //recorremos las cookies e importamos en un try catcht para no estropear la web
+
     for (let item of this.cookieService.keys) {
       console.log(item)
       var unidad = document.getElementById(item);
@@ -34,6 +50,8 @@ export class SecondarydishPage implements OnInit {
     }
     this.menu.cuentaTotal = Number(Cookie.get('total'))
   }
+    // al iniciar pintamos y cogemos lo necesario de nuestros atributos
+
   ngOnInit() {
     this.api.getAllProduct("segundo").subscribe((data) => {
       for (let item of data) {
@@ -51,6 +69,7 @@ export class SecondarydishPage implements OnInit {
 
 
 
+//Funcion añadir sumamos 1 a unidades , actualizamos las cookies y el total
 
 
   add(i: string) {
@@ -69,6 +88,7 @@ export class SecondarydishPage implements OnInit {
 
 
   }
+//Funcion borrar restamos 1 a unidades hasta llegar a 0 , actualizamos las cookies y el total
 
   delete(i: string) {
     var unidad = document.getElementById('unidad-segundos-' + i);
