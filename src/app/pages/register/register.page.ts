@@ -29,6 +29,13 @@ export class RegisterPage implements OnInit {
     });
     toast.present();
   }
+  async emailErrorExp() {
+    const toast = await this.toastController.create({
+      message: 'Error debes de introducir un correo electronico.',
+      duration: 2000
+    });
+    toast.present();
+  }
   async creditCardToast() {
     const toast = await this.toastController.create({
       message: 'La tarjeta de credito no es valida.',
@@ -70,12 +77,17 @@ export class RegisterPage implements OnInit {
       this.initialToast()
   
     } else {
+      const emailRegex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
+
       if (password != repeatPassword) {
         this.passToast()
         error = true;
       } else if (creditCard.length < 16) {
         this.creditCardToast()
         error = true;
+      } else if(!emailRegex.test(email)){
+        this.emailErrorExp()
+      
       } else {
         this.api.searchUser(email).subscribe((data) => {
           if (data.length > 0) {
