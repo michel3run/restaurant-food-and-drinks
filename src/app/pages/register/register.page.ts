@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/service/api/api.service';
+import * as JsHashes  from 'jshashes';
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.page.html',
@@ -60,7 +62,7 @@ export class RegisterPage implements OnInit {
   register() {
     let error = false
     const email = (document.getElementById("email") as HTMLInputElement).value;
-    const password = (document.getElementById("password") as HTMLInputElement).value;
+    let password = (document.getElementById("password") as HTMLInputElement).value;
     const repeatPassword = (document.getElementById("repeatPassword") as HTMLInputElement).value;
     const creditCard = (document.getElementById("creditCard") as HTMLInputElement).value;
 
@@ -82,6 +84,7 @@ export class RegisterPage implements OnInit {
           } else {
             if (!error) {
               // enviar a la bbdd
+              password = this.getMD5(password)
               this.api.postUser(email, password, creditCard).subscribe()
               this.router.navigateByUrl('login')
 
@@ -97,4 +100,8 @@ export class RegisterPage implements OnInit {
   goTologin() {
     this.router.navigateByUrl('login')
   }
+  getMD5(value: string): string {
+    const hash =  new JsHashes.MD5;
+    return hash.hex(value);
+ }
 }
